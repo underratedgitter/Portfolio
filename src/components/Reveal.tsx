@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, type Easing } from "framer-motion";
+import { motion, useReducedMotion, type Easing } from "motion/react";
 import type { ReactNode } from "react";
 
 const EASE: Easing = [0.16, 1, 0.3, 1];

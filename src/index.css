@@ -1,43 +1,44 @@
 @import "tailwindcss";
+@import "./fonts.css";
+
+/* Akira Expanded (Typologic) demo: free for personal use only. Commercial use needs the full license. */
+@font-face {
+  font-family: "Akira Expanded";
+  src:
+    url("/fonts/akira-expanded.woff2") format("woff2"),
+    url("/fonts/akira-expanded.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
-  --font-display: "Space Grotesk", "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", monospace;
-
-  --color-bg: #05070a;
-  --color-panel: #0d1218;
-  --color-panel-raised: #121924;
-  --color-border: rgba(148, 163, 184, 0.14);
-  --color-border-strong: rgba(148, 163, 184, 0.28);
-  --color-ink: #e6edf3;
-  --color-ink-dim: #8b98a5;
-  --color-ink-faint: #566373;
-  --color-accent: #34d399;
-  --color-accent-dim: #1f7a58;
-  --color-accent-soft: rgba(52, 211, 153, 0.12);
-  --color-warn: #fbbf24;
-  --color-warn-soft: rgba(251, 191, 36, 0.12);
-
-  --animate-blink: blink 1.1s steps(1) infinite;
-  --animate-pulse-dot: pulse-dot 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  --animate-scan: scan 8s linear infinite;
+  --font-hero: "Akira Expanded", "Arial Black", sans-serif;
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
 }
 
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-feature-settings: "tnum" 1;
 }
 
-@keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
-  70% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+@utility hero-type {
+  font-family: var(--font-hero);
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
-@keyframes scan {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 320px; }
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.92;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,89 +53,30 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  background: #000;
+}
+
+/* Lenis animates scroll itself; native smooth scrolling would fight it. */
+html.lenis {
+  scroll-behavior: auto;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-ink);
-  font-family: var(--font-body);
+  background: #000;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(52, 211, 153, 0.08), transparent),
-    repeating-linear-gradient(to bottom, rgba(148, 163, 184, 0.035) 0px, rgba(148, 163, 184, 0.035) 1px, transparent 1px, transparent 34px),
-    repeating-linear-gradient(to right, rgba(148, 163, 184, 0.035) 0px, rgba(148, 163, 184, 0.035) 1px, transparent 1px, transparent 34px);
-  background-attachment: fixed;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #05070a;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-panel-raised);
-  border: 2px solid var(--color-bg);
-  border-radius: 8px;
-}
-
-.font-tnum {
-  font-feature-settings: "tnum" 1, "zero" 1;
-  font-variant-numeric: tabular-nums;
+  background: #fff;
+  color: #000;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.panel {
-  background: color-mix(in srgb, var(--color-panel) 92%, transparent);
-  border: 1px solid var(--color-border);
-  position: relative;
-}
-
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.corner-brackets {
-  position: relative;
-}
-.corner-brackets::before,
-.corner-brackets::after {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: var(--color-accent);
-  opacity: 0;
-  transition: opacity 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.corner-brackets::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid;
-  border-left: 2px solid;
-}
-.corner-brackets::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid;
-  border-right: 2px solid;
-}
-.corner-brackets:hover::before,
-.corner-brackets:hover::after {
-  opacity: 1;
+  outline: 1px solid #fff;
+  outline-offset: 4px;
 }

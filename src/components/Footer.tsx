@@ -1,9 +1,30 @@
+import { profile } from "../data/content";
+
+const LINKS = [
+  { label: "GitHub", href: profile.github },
+  { label: "LinkedIn", href: profile.linkedin },
+  { label: "LeetCode", href: profile.leetcode },
+  { label: "Email", href: `mailto:${profile.email}` },
+];
+
 export function Footer() {
   return (
-    <footer className="mx-auto max-w-6xl px-5 pb-16 pt-6 sm:px-8 sm:pb-20">
-      <div className="flex flex-col items-center justify-between gap-3 border-t border-[var(--color-border)] pt-6 font-mono text-xs text-[var(--color-ink-faint)] sm:flex-row">
-        <span>© {new Date().getFullYear()} Suraj Patel — built from scratch, deployed with care.</span>
-        <span>designed &amp; built with React · Tailwind · Framer Motion</span>
+    <footer>
+      <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          {LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target={link.href.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+              className="label transition-opacity duration-200 hover:opacity-50"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+        <p className="label text-white/50">© {new Date().getFullYear()} · Bharuch, India</p>
       </div>
     </footer>
   );

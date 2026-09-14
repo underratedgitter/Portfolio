@@ -1,54 +1,41 @@
 import { experience } from "../data/content";
-import { SectionHeading } from "./SectionHeading";
+import { LabelCell } from "./LabelCell";
 import { Reveal } from "./Reveal";
-
-const STATUS_STYLES: Record<string, string> = {
-  current: "text-[var(--color-accent)] border-[var(--color-accent)]/40 bg-[var(--color-accent-soft)]",
-  merged: "text-[var(--color-warn)] border-[var(--color-warn)]/40 bg-[var(--color-warn-soft)]",
-  complete: "text-[var(--color-ink-faint)] border-[var(--color-border-strong)] bg-transparent",
-};
+import { Rule } from "./Rule";
 
 export function Experience() {
   return (
-    <section id="experience" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-24 sm:px-8">
-      <SectionHeading index="02" title="experience" subtitle="git log --oneline --graph" />
-
-      <div className="relative">
-        <div className="absolute bottom-0 left-[7px] top-2 w-px bg-[var(--color-border)] sm:left-[7px]" />
-
-        <ul className="space-y-10">
-          {experience.map((item, i) => (
-            <Reveal key={item.id} delay={i * 0.05}>
-              <li className="relative pl-8">
-                <span
-                  className={`absolute left-0 top-1.5 h-4 w-4 rounded-full border-2 ${
-                    item.status === "current"
-                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/20"
-                      : "border-[var(--color-border-strong)] bg-[var(--color-bg)]"
-                  }`}
-                />
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-mono text-xs text-[var(--color-ink-faint)]">{item.range}</span>
-                  <span
-                    className={`rounded border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide ${STATUS_STYLES[item.status]}`}
-                  >
-                    {item.status}
-                  </span>
-                </div>
-                <h3 className="mt-2 font-display text-lg font-semibold text-[var(--color-ink)] sm:text-xl">
-                  {item.role}
-                </h3>
-                <p className="font-mono text-sm text-[var(--color-ink-dim)]">
-                  {item.org} · {item.location}
-                </p>
-                <p className="mt-2.5 max-w-[70ch] text-[15px] leading-relaxed text-[var(--color-ink-dim)]">
-                  {item.description}
-                </p>
-              </li>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
+    <section>
+      <LabelCell
+        id="experience"
+        index="02"
+        align="indent"
+        note="2023 — now"
+        title={
+          <>
+            Where I&rsquo;ve <em>been</em>
+          </>
+        }
+      />
+      {experience.map((item) => (
+        <Reveal
+          key={item.id}
+          className="relative grid gap-x-6 gap-y-4 px-4 pb-8 pt-5 sm:px-6 md:grid-cols-[13rem_1fr_1.25fr]"
+        >
+          <Rule />
+          <div className="flex items-center gap-2 self-start md:pt-3">
+            {item.status === "current" && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+            <p className="label text-white/70">{item.range}</p>
+          </div>
+          <div>
+            <h3 className="display text-[2.1rem] leading-[0.98] sm:text-[2.5rem]">{item.role}</h3>
+            <p className="label mt-3 text-white/50">
+              {item.org} · {item.location}
+            </p>
+          </div>
+          <p className="max-w-[58ch] text-[15px] leading-[1.55] text-white/80">{item.description}</p>
+        </Reveal>
+      ))}
     </section>
   );
 }

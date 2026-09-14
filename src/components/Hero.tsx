@@ -1,122 +1,152 @@
-import { motion, useReducedMotion, type Easing } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion, type Easing } from "motion/react";
 import { profile } from "../data/content";
-import { RoleTyper } from "./RoleTyper";
+import { SystemGraphic } from "./SystemGraphic";
+import { PillLink } from "./PillLink";
+import { Rule } from "./Rule";
 
 const EASE: Easing = [0.16, 1, 0.3, 1];
 
-const SOCIALS = [
-  { label: "GitHub", href: profile.github },
-  { label: "LinkedIn", href: profile.linkedin },
-  { label: "LeetCode", href: profile.leetcode },
-  { label: "Email", href: `mailto:${profile.email}` },
+const INDEX = [
+  { n: "01", label: "Selected work", href: "#work" },
+  { n: "02", label: "Experience", href: "#experience" },
+  { n: "03", label: "Toolkit", href: "#toolkit" },
+  { n: "04", label: "About", href: "#about" },
+  { n: "05", label: "Contact", href: "#contact" },
 ];
+
+function formatIST(date: Date) {
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).format(date);
+}
+
+function LocalTime() {
+  const [time, setTime] = useState(() => formatIST(new Date()));
+  useEffect(() => {
+    const id = window.setInterval(() => setTime(formatIST(new Date())), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return <>{time} IST</>;
+}
+
+function MaskedLine({ children, delay, className = "", tracking }: { children: string; delay: number; className?: string; tracking: string }) {
+  const reduceMotion = useReducedMotion();
+  return (
+    <span className={`block overflow-hidden leading-[1] ${className}`}>
+      <motion.span
+        className="inline-block"
+        style={{ letterSpacing: tracking }}
+        initial={reduceMotion ? false : { y: "110%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 1.1, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
-  const fadeUp = (delay: number) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 16 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.6, delay, ease: EASE },
-        };
+  const fade = (delay: number) =>
+    reduceMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 1, delay, ease: EASE } };
+
+  const meta = [
+    { k: "Discipline", v: "DevOps · Cloud · SRE" },
+    { k: "Currently", v: "D-Tech Solution Integrators" },
+    { k: "Based in", v: "Bharuch, India" },
+    { k: "Local time", v: <LocalTime /> },
+  ];
 
   return (
-    <section id="top" className="relative flex min-h-screen items-center pt-14">
-      <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.3fr_1fr] md:items-center">
-          <div>
-            <motion.p
-              {...fadeUp(0)}
-              className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
-              status: available for interesting problems
-            </motion.p>
+    <section id="top" className="relative overflow-hidden">
+      <motion.dl {...fade(0.1)} className="relative grid grid-cols-2 md:grid-cols-[1fr_1.6fr_1.15fr_0.75fr]">
+        {meta.map((m, i) => (
+          <div key={m.k} className="relative px-4 py-3 sm:px-6">
+            {i !== 3 && <Rule side="right" className={i === 1 ? "hidden md:block" : ""} />}
+            {i < 2 && <Rule className="md:hidden" />}
+            <dt className="label text-white/50">{m.k}</dt>
+            <dd className="label mt-1.5 text-white">{m.v}</dd>
+          </div>
+        ))}
+        <Rule />
+      </motion.dl>
 
-            <motion.h1
-              {...fadeUp(0.08)}
-              className="font-display text-4xl font-semibold leading-[1.08] tracking-tight text-[var(--color-ink)] sm:text-6xl"
-            >
-              Suraj Patel
-            </motion.h1>
+      <div className="relative">
+        <SystemGraphic className="pointer-events-none absolute inset-0 h-full w-full text-white opacity-45 [mask-composite:intersect] [mask-image:linear-gradient(to_left,#000_28%,transparent_62%),linear-gradient(to_bottom,#000_55%,transparent_80%)]" />
 
-            <motion.div
-              {...fadeUp(0.16)}
-              className="mt-4 h-8 font-mono text-lg text-[var(--color-ink-dim)] sm:text-xl"
-            >
-              <RoleTyper roles={profile.roles} />
-            </motion.div>
+        <div className="relative px-4 pt-10 sm:px-6 sm:pt-14">
+          <motion.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-black px-2 py-1.5 text-white/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-white" />
+            Open to DevOps, cloud &amp; SRE roles
+          </motion.p>
 
-            <motion.p
-              {...fadeUp(0.24)}
-              className="mt-6 max-w-[62ch] text-base leading-relaxed text-[var(--color-ink-dim)] sm:text-lg"
-            >
-              I build the pipeline that ships the code, the telemetry that tells you it broke, and the
-              system that works out why. Currently a Software &amp; Solutions Architect building software
-              that keeps manufacturing lines running.
-            </motion.p>
-
-            <motion.div {...fadeUp(0.32)} className="mt-9 flex flex-wrap items-center gap-3">
-              <a
-                href="#projects"
-                className="rounded border border-[var(--color-accent)] bg-[var(--color-accent-soft)] px-5 py-2.5 font-mono text-sm font-medium text-[var(--color-accent)] transition-transform duration-150 hover:-translate-y-0.5"
-              >
-                view projects
-              </a>
-              <a
-                href="#contact"
-                className="rounded border border-[var(--color-border-strong)] px-5 py-2.5 font-mono text-sm text-[var(--color-ink)] transition-colors duration-150 hover:border-[var(--color-ink)]"
-              >
-                get in touch
-              </a>
-            </motion.div>
-
-            <motion.div
-              {...fadeUp(0.4)}
-              className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-[var(--color-ink-faint)]"
-            >
-              {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target={s.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="transition-colors duration-150 hover:text-[var(--color-accent)]"
-                >
-                  {s.label} ↗
-                </a>
-              ))}
-            </motion.div>
+          <div className="@container mt-6 sm:mt-8">
+            <h1 className="hero-type whitespace-nowrap text-[min(calc(100cqw/5.9),18svh)]">
+              <MaskedLine delay={0.15} tracking="0em">
+                Suraj
+              </MaskedLine>
+              <MaskedLine delay={0.28} tracking="0em" className="-mt-[0.26em] text-right">
+                Patel
+              </MaskedLine>
+            </h1>
           </div>
 
-          <motion.div {...fadeUp(0.2)} className="panel corner-brackets rounded-lg p-4 font-mono text-[13px] leading-relaxed shadow-[0_20px_60px_-30px_rgba(0,0,0,0.8)]">
-            <div className="mb-3 flex items-center gap-1.5 border-b border-[var(--color-border)] pb-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-              <span className="ml-2 text-[var(--color-ink-faint)]">whoami.sh</span>
-            </div>
-            <p className="text-[var(--color-ink-dim)]">
-              <span className="text-[var(--color-accent)]">$</span> whoami
-            </p>
-            <p className="mt-1 text-[var(--color-ink)]">suraj_patel</p>
-            <p className="mt-3 text-[var(--color-ink-dim)]">
-              <span className="text-[var(--color-accent)]">$</span> cat focus.txt
-            </p>
-            <p className="mt-1 text-[var(--color-ink)]">
-              observability · incident response
-              <br />
-              CI/CD · cloud infra · reliability
-            </p>
-            <p className="mt-3 text-[var(--color-ink-dim)]">
-              <span className="text-[var(--color-accent)]">$</span> curl status.suraj/health
-            </p>
-            <p className="mt-1 text-[var(--color-accent)]">200 OK — all systems nominal</p>
+          <motion.div {...fade(0.45)} className="label relative mt-6 flex items-center justify-between pb-4 pt-3 text-white/55 sm:mt-8">
+            <Rule side="top" soft />
+            <span>Portfolio · {new Date().getFullYear()}</span>
+            <span className="hidden sm:inline">Pipelines · Telemetry · Reliability</span>
+            <span>Scroll ↓</span>
           </motion.div>
         </div>
       </div>
+
+      <div className="relative grid bg-black lg:grid-cols-12">
+        <Rule side="top" />
+        <motion.div {...fade(0.55)} className="relative px-4 pb-10 pt-6 sm:px-6 lg:col-span-8">
+          <Rule className="lg:hidden" />
+          <Rule side="right" className="hidden lg:block" />
+          <p className="label text-white/50">Statement</p>
+          <p className="display mt-5 max-w-[20ch] text-[2.4rem] leading-[0.98] sm:text-[3.4rem]">
+            I build the <em>pipelines</em> that ship code, the <em>telemetry</em> that says it broke, and the <em>systems</em> that work out why.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <PillLink href={`mailto:${profile.email}`} variant="solid">
+              Start a conversation
+            </PillLink>
+            <PillLink href="/Suraj_Patel_Resume.pdf" external>
+              Résumé <span aria-hidden>↗</span>
+            </PillLink>
+          </div>
+        </motion.div>
+
+        <motion.nav {...fade(0.7)} aria-label="Sections" className="flex flex-col lg:col-span-4">
+          <p className="label relative px-4 py-3 text-white/50 sm:px-6">
+            Index
+            <Rule />
+          </p>
+          {INDEX.map((item, i) => (
+            <a
+              key={item.n}
+              href={item.href}
+              className="group relative flex flex-1 items-center justify-between px-4 py-4 transition-colors duration-300 hover:bg-white hover:text-black sm:px-6"
+            >
+              {i < INDEX.length - 1 && <Rule />}
+              <span className="flex items-baseline gap-5">
+                <span className="label opacity-50">{item.n}</span>
+                <span className="display text-[2rem] leading-none sm:text-[2.4rem]">{item.label}</span>
+              </span>
+              <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </a>
+          ))}
+        </motion.nav>
+      </div>
+      <Rule />
     </section>
   );
 }
