@@ -7,11 +7,11 @@ import { Rule } from "./Rule";
 const SPANS = [7, 5, 4, 8, 3, 5, 4];
 const LG_SPAN: Record<number, string> = { 3: "lg:col-span-3", 4: "lg:col-span-4", 5: "lg:col-span-5", 7: "lg:col-span-7", 8: "lg:col-span-8" };
 
-export function Skills() {
-  // A cell gets a right-hand rule on large screens unless it closes its row of 12.
-  let filled = 0;
-  const endsRow = SPANS.map((span) => (filled = (filled + span) % 12) === 0);
+// A cell gets a right-hand rule on large screens unless it closes its row of 12.
+// Derived once from the constant spans, so render stays free of mutation.
+const ENDS_ROW = SPANS.map((_, i) => SPANS.slice(0, i + 1).reduce((sum, span) => sum + span, 0) % 12 === 0);
 
+export function Skills() {
   return (
     <section>
       <LabelCell
@@ -30,7 +30,7 @@ export function Skills() {
             <Rule />
             <Rule
               side="right"
-              className={`hidden ${i % 2 === 0 ? "sm:block" : "sm:hidden"} ${endsRow[i % SPANS.length] ? "lg:hidden" : "lg:block"}`}
+              className={`hidden ${i % 2 === 0 ? "sm:block" : "sm:hidden"} ${ENDS_ROW[i % SPANS.length] ? "lg:hidden" : "lg:block"}`}
             />
             <p className="label text-white/55">{String(i + 1).padStart(2, "0")}</p>
             <h3 className="display mt-8 text-[2rem] leading-none">{group.title}</h3>

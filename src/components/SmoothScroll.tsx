@@ -14,7 +14,8 @@ export function SmoothScroll() {
       const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
       const hash = link?.getAttribute("href");
       if (!hash || hash === "#") return;
-      const target = document.querySelector(hash);
+      // getElementById avoids querySelector's SyntaxError on ids that aren't valid CSS selectors.
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
       if (!target) return;
       event.preventDefault();
       // Lenis already subtracts the target's scroll-margin-top (scroll-mt-14 on sections), which clears the sticky nav.
