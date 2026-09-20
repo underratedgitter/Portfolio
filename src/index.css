@@ -50,15 +50,14 @@
   }
 }
 
+/* Native scrolling runs on the compositor thread, so it stays smooth even while the page is busy.
+   A JS smooth-scroll library (Lenis) was removed: it moved the page from the main thread every frame
+   and forced a layout each time, which lagged on Retina Macs with integrated graphics.
+   `scroll-behavior: smooth` still glides nav and anchor links; sections use scroll-mt-14 to clear the sticky nav. */
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
   background: #000;
-}
-
-/* Lenis animates scroll itself; native smooth scrolling would fight it. */
-html.lenis {
-  scroll-behavior: auto;
 }
 
 body {

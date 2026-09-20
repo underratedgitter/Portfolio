@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
-import { motion, useReducedMotion, type Easing, type Variants } from "motion/react";
+import { useRef, type ReactNode } from "react";
+import * as m from "motion/react-m";
+import { useInView, useReducedMotion, type Easing, type Variants } from "motion/react";
 
 const FONT = "'Geist Mono', ui-monospace, monospace";
 const SERIF = "'Instrument Serif', 'Times New Roman', serif";
@@ -34,7 +35,7 @@ const bar: Variants = {
 function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number; h: number; label: string; dashed?: boolean; s: number }) {
   return (
     <g>
-      <motion.rect
+      <m.rect
         x={x}
         y={y}
         width={w}
@@ -46,7 +47,7 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
         variants={dashed ? fade : draw}
         custom={s}
       />
-      <motion.text
+      <m.text
         x={x + w / 2}
         y={y + h / 2 + 4}
         textAnchor="middle"
@@ -58,40 +59,40 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
         custom={s}
       >
         {label}
-      </motion.text>
+      </m.text>
     </g>
   );
 }
 
 function Note({ x, y, children, anchor = "start", s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; s: number }) {
   return (
-    <motion.text x={x} y={y} fontSize="16" fill="#fff" fillOpacity="0.6" fontFamily={SERIF} fontStyle="italic" textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize="16" fill="#fff" fillOpacity="0.6" fontFamily={SERIF} fontStyle="italic" textAnchor={anchor} variants={fade} custom={s}>
       {children}
-    </motion.text>
+    </m.text>
   );
 }
 
 function Mono({ x, y, children, anchor = "start", dim, s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; dim?: boolean; s: number }) {
   return (
-    <motion.text x={x} y={y} fontSize={dim ? 11 : 12} fill="#fff" fillOpacity={dim ? 0.55 : 1} fontFamily={FONT} textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize={dim ? 11 : 12} fill="#fff" fillOpacity={dim ? 0.55 : 1} fontFamily={FONT} textAnchor={anchor} variants={fade} custom={s}>
       {children}
-    </motion.text>
+    </m.text>
   );
 }
 
 function Headline({ x, y, children, anchor = "start", s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle"; s: number }) {
   return (
-    <motion.text x={x} y={y} fontSize="22" fill="#fff" fontFamily={SERIF} textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize="22" fill="#fff" fontFamily={SERIF} textAnchor={anchor} variants={fade} custom={s}>
       {children}
-    </motion.text>
+    </m.text>
   );
 }
 
 function Arrow({ d, id, dashed, s }: { d: string; id: string; dashed?: boolean; s: number }) {
   return (
     <g>
-      <motion.path d={d} stroke="#fff" strokeWidth="1" fill="none" strokeDasharray={dashed ? "4 4" : undefined} variants={dashed ? fade : draw} custom={s} />
-      <motion.path d={d} stroke="#fff" strokeOpacity={0} fill="none" markerEnd={`url(#arrow-${id})`} variants={arrowHead} custom={s} />
+      <m.path d={d} stroke="#fff" strokeWidth="1" fill="none" strokeDasharray={dashed ? "4 4" : undefined} variants={dashed ? fade : draw} custom={s} />
+      <m.path d={d} stroke="#fff" strokeOpacity={0} fill="none" markerEnd={`url(#arrow-${id})`} variants={arrowHead} custom={s} />
     </g>
   );
 }
@@ -100,7 +101,7 @@ function Frame({ id, fig, title, children }: { id: string; fig: string; title: s
   const reduce = useReducedMotion();
 
   return (
-    <motion.svg
+    <m.svg
       viewBox="0 0 640 480"
       className="block h-auto w-full"
       role="img"
@@ -123,7 +124,7 @@ function Frame({ id, fig, title, children }: { id: string; fig: string; title: s
         {title}
       </Mono>
       {children}
-    </motion.svg>
+    </m.svg>
   );
 }
 
@@ -139,7 +140,7 @@ function AegisPlate() {
     <Frame id={id} fig="Fig. 01" title="Incident flow">
       <Box x={40} y={130} w={120} h={40} label="checkout" s={0} />
       <Box x={40} y={210} w={120} h={40} label="inventory" s={0.4} />
-      <motion.path d="M160 150 H195 V120 M160 230 H195 V120" stroke="#fff" fill="none" variants={draw} custom={1} />
+      <m.path d="M160 150 H195 V120 M160 230 H195 V120" stroke="#fff" fill="none" variants={draw} custom={1} />
       <Arrow id={id} d="M195 120 H228" s={1.5} />
       {stages.map((stage, i) => {
         const s = 2 + i * 1.2;
@@ -176,7 +177,7 @@ function PipelinePlate() {
 
   return (
     <Frame id={id} fig="Fig. 02" title="Push to production">
-      <motion.circle cx="50" cy="200" r="16" fill="#000" stroke="#fff" variants={draw} custom={0} />
+      <m.circle cx="50" cy="200" r="16" fill="#000" stroke="#fff" variants={draw} custom={0} />
       <Mono x={50} y={243} anchor="middle" s={0}>
         push
       </Mono>
@@ -207,31 +208,39 @@ function PipelinePlate() {
       <Headline x={100} y={368} s={4.6}>
         push → live, under five minutes
       </Headline>
-      <motion.line x1="100" y1="390" x2="610" y2="390" stroke="#fff" variants={draw} custom={5} />
+      <m.line x1="100" y1="390" x2="610" y2="390" stroke="#fff" variants={draw} custom={5} />
       {ticks.map((t) => (
         <g key={t}>
-          <motion.line x1={100 + t * 102} y1="384" x2={100 + t * 102} y2="396" stroke="#fff" variants={draw} custom={5.3 + t * 0.2} />
+          <m.line x1={100 + t * 102} y1="384" x2={100 + t * 102} y2="396" stroke="#fff" variants={draw} custom={5.3 + t * 0.2} />
           <Mono x={100 + t * 102} y={420} anchor="middle" dim s={5.3 + t * 0.2}>
             {`${t} min`}
           </Mono>
         </g>
       ))}
-      {!reduce && (
-        <motion.circle
-          cy="390"
-          r="5"
-          fill="#fff"
-          variants={{
-            hidden: { cx: 100, opacity: 0 },
-            show: {
-              cx: [100, 610],
-              opacity: [0, 1, 1, 0],
-              transition: { delay: 2.2, duration: 2.8, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" },
-            },
-          }}
-        />
-      )}
+      {!reduce && <TimelineDot />}
     </Frame>
+  );
+}
+
+/**
+ * The dot that travels the deploy timeline. It moves with a transform instead of
+ * animating `cx` (which re-renders the whole SVG each frame) and only loops while
+ * the diagram is on screen.
+ */
+function TimelineDot() {
+  const ref = useRef<SVGCircleElement>(null);
+  const onScreen = useInView(ref, { amount: 0.35 });
+  return (
+    <m.circle
+      ref={ref}
+      cx="100"
+      cy="390"
+      r="5"
+      fill="#fff"
+      initial={{ x: 0, opacity: 0 }}
+      animate={onScreen ? { x: [0, 510], opacity: [0, 1, 1, 0] } : { x: 0, opacity: 0 }}
+      transition={onScreen ? { delay: 2.2, duration: 2.8, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" } : { duration: 0 }}
+    />
   );
 }
 
@@ -243,12 +252,12 @@ function TerraformPlate() {
         internet
       </Mono>
       <Arrow id={id} d="M370 86 V118" s={0.4} />
-      <motion.rect x="170" y="100" width="420" height="300" fill="none" stroke="#fff" strokeDasharray="4 4" variants={fade} custom={0.6} />
+      <m.rect x="170" y="100" width="420" height="300" fill="none" stroke="#fff" strokeDasharray="4 4" variants={fade} custom={0.6} />
       <Note x={582} y={392} anchor="end" s={0.8}>
         VPC
       </Note>
-      <motion.rect x="190" y="180" width="190" height="190" fill="none" stroke="#fff" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.2} />
-      <motion.rect x="390" y="180" width="180" height="190" fill="none" stroke="#fff" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.4} />
+      <m.rect x="190" y="180" width="190" height="190" fill="none" stroke="#fff" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.2} />
+      <m.rect x="390" y="180" width="180" height="190" fill="none" stroke="#fff" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.4} />
       <Note x={200} y={360} s={1.4}>
         zone a
       </Note>
@@ -266,7 +275,7 @@ function TerraformPlate() {
       <Box x={24} y={180} w={120} h={40} label="ECR" s={4.2} />
       <Box x={24} y={260} w={120} h={40} label="CloudWatch" s={4.5} />
       <Box x={24} y={340} w={120} h={40} label="S3 + lock" s={4.8} />
-      <motion.path d="M215 268 H170 V200 H144 M170 268 V280 H144" stroke="#fff" strokeOpacity="0.6" fill="none" variants={draw} custom={5.2} />
+      <m.path d="M215 268 H170 V200 H144 M170 268 V280 H144" stroke="#fff" strokeOpacity="0.6" fill="none" variants={draw} custom={5.2} />
       <Headline x={320} y={446} anchor="middle" s={6}>
         CI plans every pull request through OIDC. No long-lived keys.
       </Headline>
@@ -306,14 +315,14 @@ function RagPlate() {
       <Mono x={24} y={352} s={barStep - 1}>
         CPU
       </Mono>
-      <motion.rect x="90" y="340" height="16" fill="#fff" fillOpacity="0.25" variants={bar} custom={{ w: 510, s: barStep, dur: cpuDuration }} />
+      <m.rect x="90" y="340" height="16" fill="#fff" fillOpacity="0.25" variants={bar} custom={{ w: 510, s: barStep, dur: cpuDuration }} />
       <Mono x={606} y={376} anchor="end" dim s={barStep + cpuDuration / STEP - 1.5}>
         5:00
       </Mono>
       <Mono x={24} y={412} s={barStep - 1}>
         GPU
       </Mono>
-      <motion.rect x="90" y="400" height="16" fill="#fff" variants={bar} custom={{ w: gpuWidth, s: barStep, dur: 0.35 }} />
+      <m.rect x="90" y="400" height="16" fill="#fff" variants={bar} custom={{ w: gpuWidth, s: barStep, dur: 0.35 }} />
       <Mono x={100 + gpuWidth} y={413} s={barStep + 0.4}>
         0:20 — 15× faster
       </Mono>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion, type Easing } from "motion/react";
+import * as m from "motion/react-m";
+import { useReducedMotion, type Easing } from "motion/react";
 import { profile } from "../data/content";
 import { SystemGraphic } from "./SystemGraphic";
 import { PillLink } from "./PillLink";
@@ -38,7 +39,7 @@ function MaskedLine({ children, delay, className = "", tracking }: { children: s
   const reduceMotion = useReducedMotion();
   return (
     <span className={`block overflow-hidden leading-[1] ${className}`}>
-      <motion.span
+      <m.span
         className="inline-block"
         style={{ letterSpacing: tracking }}
         initial={reduceMotion ? false : { y: "110%" }}
@@ -46,7 +47,7 @@ function MaskedLine({ children, delay, className = "", tracking }: { children: s
         transition={{ duration: 1.1, delay, ease: EASE }}
       >
         {children}
-      </motion.span>
+      </m.span>
     </span>
   );
 }
@@ -65,7 +66,7 @@ export function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden">
-      <motion.dl {...fade(0.1)} className="relative grid grid-cols-2 md:grid-cols-[1fr_1.6fr_1.15fr_0.75fr]">
+      <m.dl {...fade(0.1)} className="relative grid grid-cols-2 md:grid-cols-[1fr_1.6fr_1.15fr_0.75fr]">
         {meta.map((m, i) => (
           <div key={m.k} className="relative px-4 py-3 sm:px-6">
             {i !== 3 && <Rule side="right" className={i === 1 ? "hidden md:block" : ""} />}
@@ -75,16 +76,16 @@ export function Hero() {
           </div>
         ))}
         <Rule />
-      </motion.dl>
+      </m.dl>
 
       <div className="relative">
         <SystemGraphic className="pointer-events-none absolute inset-0 h-full w-full text-white opacity-45 [mask-composite:intersect] [mask-image:linear-gradient(to_left,#000_28%,transparent_62%),linear-gradient(to_bottom,#000_55%,transparent_80%)]" />
 
         <div className="relative px-4 pt-10 sm:px-6 sm:pt-14">
-          <motion.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-black px-2 py-1.5 text-white/70">
+          <m.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-black px-2 py-1.5 text-white/70">
             <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Open to DevOps, cloud &amp; SRE roles
-          </motion.p>
+          </m.p>
 
           <div className="@container mt-6 sm:mt-8">
             <h1 className="hero-type whitespace-nowrap text-[min(calc(100cqw/5.9),18svh)]">
@@ -97,18 +98,18 @@ export function Hero() {
             </h1>
           </div>
 
-          <motion.div {...fade(0.45)} className="label relative mt-6 flex items-center justify-between pb-4 pt-3 text-white/55 sm:mt-8">
+          <m.div {...fade(0.45)} className="label relative mt-6 flex items-center justify-between pb-4 pt-3 text-white/55 sm:mt-8">
             <Rule side="top" soft />
             <span>Portfolio · {new Date().getFullYear()}</span>
             <span className="hidden sm:inline">Pipelines · Telemetry · Reliability</span>
             <span>Scroll ↓</span>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
       <div className="relative grid bg-black lg:grid-cols-12">
         <Rule side="top" />
-        <motion.div {...fade(0.55)} className="relative px-4 pb-10 pt-6 sm:px-6 lg:col-span-8">
+        <m.div {...fade(0.55)} className="relative px-4 pb-10 pt-6 sm:px-6 lg:col-span-8">
           <Rule className="lg:hidden" />
           <Rule side="right" className="hidden lg:block" />
           <p className="label text-white/50">Statement</p>
@@ -123,9 +124,9 @@ export function Hero() {
               Résumé <span aria-hidden>↗</span>
             </PillLink>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.nav {...fade(0.7)} aria-label="Sections" className="flex flex-col lg:col-span-4">
+        <m.nav {...fade(0.7)} aria-label="Sections" className="flex flex-col lg:col-span-4">
           <p className="label relative px-4 py-3 text-white/50 sm:px-6">
             Index
             <Rule />
@@ -144,7 +145,7 @@ export function Hero() {
               <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1">→</span>
             </a>
           ))}
-        </motion.nav>
+        </m.nav>
       </div>
       <Rule />
     </section>

@@ -1,4 +1,6 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import * as m from "motion/react-m";
+import { useInView, useReducedMotion } from "motion/react";
 
 const NODES = [
   { id: "a", x: 70, y: 110, r: 3 },
@@ -30,9 +32,12 @@ const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 
 export function SystemGraphic({ className }: { className?: string }) {
   const reduceMotion = useReducedMotion();
+  const ref = useRef<SVGSVGElement>(null);
+  // The pulsing nodes repaint this large masked layer every frame; stop them once the hero is scrolled away.
+  const onScreen = useInView(ref);
 
   return (
-    <svg aria-hidden viewBox="0 0 640 380" preserveAspectRatio="xMidYMid slice" className={className}>
+    <svg ref={ref} aria-hidden viewBox="0 0 640 380" preserveAspectRatio="xMidYMid slice" className={className}>
       <g stroke="currentColor" strokeWidth="0.6">
         {EDGES.map(([from, to], i) => {
           const a = byId[from];
@@ -40,7 +45,7 @@ export function SystemGraphic({ className }: { className?: string }) {
           return reduceMotion ? (
             <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} strokeOpacity={0.35} />
           ) : (
-            <motion.line
+            <m.line
               key={i}
               x1={a.x}
               y1={a.y}
@@ -58,14 +63,14 @@ export function SystemGraphic({ className }: { className?: string }) {
           reduceMotion ? (
             <circle key={n.id} cx={n.x} cy={n.y} r={n.r} />
           ) : (
-            <motion.circle
+            <m.circle
               key={n.id}
               cx={n.x}
               cy={n.y}
               r={n.r}
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+              animate={onScreen ? { opacity: [0.4, 1, 0.4] } : { opacity: 0.4 }}
+              transition={onScreen ? { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.3 } : { duration: 0.4 }}
             />
           ),
         )}
