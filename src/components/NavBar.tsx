@@ -1,3 +1,5 @@
+import { Scramble } from "./Scramble";
+
 const LINKS = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
@@ -22,7 +24,7 @@ export function NavBar() {
               href={link.href}
               className={`label transition-opacity duration-200 hover:opacity-50 ${link.href === "#experience" ? "hidden sm:inline" : ""}`}
             >
-              {link.label}
+              <Scramble text={link.label} trigger="hover" />
             </a>
           ))}
           <a
@@ -31,7 +33,7 @@ export function NavBar() {
             rel="noreferrer"
             className="label hidden transition-opacity duration-200 hover:opacity-50 sm:inline"
           >
-            Résumé <span aria-hidden>↗</span>
+            <Scramble text="Résumé" trigger="hover" /> <span aria-hidden>↗</span>
           </a>
         </nav>
       </div>

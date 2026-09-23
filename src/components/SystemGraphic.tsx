@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as m from "motion/react-m";
 import { useInView, useReducedMotion } from "motion/react";
+import { animate, svg, type JSAnimation } from "animejs";
 
 const NODES = [
   { id: "a", x: 70, y: 110, r: 3 },
@@ -30,11 +31,46 @@ const EDGES: [string, string][] = [
 
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 
+// Request paths through the graph; each one carries a travelling packet. Every hop is an edge above.
+const ROUTES = [
+  { hops: ["a", "b", "c", "d", "e", "i"], duration: 5200, delay: 1800 },
+  { hops: ["h", "g", "f", "i"], duration: 3800, delay: 2600 },
+  { hops: ["a", "h", "g", "c", "f"], duration: 4400, delay: 3400 },
+];
+
+const routePath = (hops: string[]) => hops.map((id, i) => `${i ? "L" : "M"}${byId[id].x} ${byId[id].y}`).join(" ");
+
 export function SystemGraphic({ className }: { className?: string }) {
   const reduceMotion = useReducedMotion();
   const ref = useRef<SVGSVGElement>(null);
   // The pulsing nodes repaint this large masked layer every frame; stop them once the hero is scrolled away.
   const onScreen = useInView(ref);
+  const packets = useRef<JSAnimation[]>([]);
+
+  useEffect(() => {
+    const root = ref.current;
+    if (!root || reduceMotion) return;
+    packets.current = ROUTES.map((route, i) =>
+      animate(root.querySelector(`[data-packet="${i}"]`)!, {
+        ...svg.createMotionPath(root.querySelector(`[data-route="${i}"]`)!),
+        opacity: [0, 1, 1, 0],
+        duration: route.duration,
+        delay: route.delay,
+        loopDelay: 900 + i * 700,
+        loop: true,
+        ease: "inOutSine",
+      }),
+    );
+    return () => {
+      packets.current.forEach((a) => a.revert());
+      packets.current = [];
+    };
+  }, [reduceMotion]);
+
+  // Same reason as the pulsing nodes: no per-frame work while the hero is out of view.
+  useEffect(() => {
+    packets.current.forEach((a) => (onScreen ? a.play() : a.pause()));
+  }, [onScreen]);
 
   return (
     <svg ref={ref} aria-hidden viewBox="0 0 640 380" preserveAspectRatio="xMidYMid slice" className={className}>
@@ -58,6 +94,16 @@ export function SystemGraphic({ className }: { className?: string }) {
           );
         })}
       </g>
+      {!reduceMotion && (
+        <g>
+          {ROUTES.map((route, i) => (
+            <path key={i} data-route={i} d={routePath(route.hops)} fill="none" stroke="none" />
+          ))}
+          {ROUTES.map((_, i) => (
+            <rect key={i} data-packet={i} x={-3} y={-1} width={6} height={2} fill="currentColor" opacity={0} />
+          ))}
+        </g>
+      )}
       <g fill="currentColor">
         {NODES.map((n, i) =>
           reduceMotion ? (

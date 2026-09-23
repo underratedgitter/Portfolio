@@ -5,6 +5,7 @@ import { profile } from "../data/content";
 import { SystemGraphic } from "./SystemGraphic";
 import { PillLink } from "./PillLink";
 import { Rule } from "./Rule";
+import { Scramble } from "./Scramble";
 
 const EASE: Easing = [0.16, 1, 0.3, 1];
 
@@ -72,7 +73,7 @@ export function Hero() {
             {i !== 3 && <Rule side="right" className={i === 1 ? "hidden md:block" : ""} />}
             {i < 2 && <Rule className="md:hidden" />}
             <dt className="label text-white/50">{m.k}</dt>
-            <dd className="label mt-1.5 text-white">{m.v}</dd>
+            <dd className="label mt-1.5 text-white">{typeof m.v === "string" ? <Scramble text={m.v} delay={250 + i * 120} /> : m.v}</dd>
           </div>
         ))}
         <Rule />
