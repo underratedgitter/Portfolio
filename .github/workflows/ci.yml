@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Lint, type-check & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint -- --deny-warnings
+
+      - name: Type-check and build
+        run: npm run build
+
+      - name: Audit runtime dependencies
+        run: npm audit --omit=dev --audit-level=high

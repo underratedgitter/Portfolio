@@ -7,6 +7,8 @@ const LINKS = [
   { label: "Email", href: `mailto:${profile.email}` },
 ];
 
+const YEAR = new Date().getFullYear();
+
 export function Footer() {
   return (
     <footer>
@@ -24,7 +26,7 @@ export function Footer() {
             </a>
           ))}
         </div>
-        <p className="label text-white/50">© {new Date().getFullYear()} · Bharuch, India</p>
+        <p className="label text-white/50">© {YEAR} · Bharuch, India</p>
       </div>
     </footer>
   );
