@@ -67,7 +67,7 @@ export function About() {
               href={profile.linkedinCertifications}
               target="_blank"
               rel="noreferrer"
-              className="group label mt-5 inline-flex items-center gap-2 border-b border-line-strong pb-1 transition-colors duration-200 hover:border-accent"
+              className="group label mt-5 inline-flex items-center gap-2 border-b border-line-strong pb-1 transition-colors duration-200 hover:border-paper"
             >
               View credentials on LinkedIn
               <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-1">↗</span>

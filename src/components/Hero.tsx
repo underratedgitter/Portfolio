@@ -86,7 +86,6 @@ export function Hero() {
 
         <div className="relative px-4 pt-10 sm:px-6 sm:pt-14">
           <m.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-ink px-2 py-1.5 text-mute">
-            <span aria-hidden className="signal-dot" />
             Open to DevOps, cloud &amp; SRE roles
           </m.p>
 
@@ -142,7 +141,7 @@ export function Hero() {
             >
               {i < INDEX.length - 1 && <Rule />}
               <span className="flex items-baseline gap-5">
-                <span className="label opacity-60 transition-colors duration-300 group-hover:text-accent group-hover:opacity-100">{item.n}</span>
+                <span className="label opacity-60 transition-colors duration-300 group-hover:opacity-100">{item.n}</span>
                 <span className="display text-[2rem] leading-none sm:text-[2.4rem]">{item.label}</span>
               </span>
               <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1">→</span>

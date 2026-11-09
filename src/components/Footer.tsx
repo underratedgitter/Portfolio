@@ -20,7 +20,7 @@ export function Footer() {
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="label transition-colors duration-200 hover:text-accent"
+              className="label transition-colors duration-200 hover:text-mute"
             >
               {link.label}
             </a>

@@ -47,7 +47,7 @@ export function Contact() {
           </p>
 
           <p className="display mt-10 text-[1.6rem] leading-none sm:text-[2rem]">
-            <a href={`mailto:${profile.email}`} className="border-b border-line-strong pb-1 transition-colors duration-200 hover:border-accent">
+            <a href={`mailto:${profile.email}`} className="border-b border-line-strong pb-1 transition-colors duration-200 hover:border-paper">
               {profile.email}
             </a>
           </p>

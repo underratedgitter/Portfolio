@@ -24,7 +24,6 @@ export function Experience() {
         >
           <Rule />
           <div className="flex items-center gap-2 self-start md:pt-3">
-            {item.status === "current" && <span aria-hidden className="signal-dot" />}
             <p className="label text-mute">{item.range}</p>
           </div>
           <div>

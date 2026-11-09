@@ -13,7 +13,7 @@ export function PillLink({
 }) {
   const styles =
     variant === "solid"
-      ? "border-paper bg-paper text-ink hover:bg-transparent hover:text-paper"
+      ? "border-accent bg-accent text-ink hover:bg-transparent hover:text-accent"
       : "border-rule text-paper hover:border-paper hover:bg-paper hover:text-ink";
 
   return (

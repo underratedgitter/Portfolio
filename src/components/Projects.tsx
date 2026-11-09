@@ -39,13 +39,13 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
       <div className={`flex flex-col px-4 pb-6 pt-4 sm:px-6 ${shape.drop} ${flip ? "md:order-1" : ""}`}>
         <div className="flex items-center justify-between">
           <span className="label text-faint">
-            <span className="text-accent">{String(index + 1).padStart(2, "0")}</span> / Case
+            <span>{String(index + 1).padStart(2, "0")}</span> / Case
           </span>
           <span className="label text-faint">{project.year}</span>
         </div>
 
         <h3 className="display mt-10 text-[2.9rem] sm:text-[3.6rem]">
-          <a href={project.href} target="_blank" rel="noreferrer" className="transition-colors duration-300 group-hover:text-accent">
+          <a href={project.href} target="_blank" rel="noreferrer" className="transition-colors duration-300 group-hover:text-mute">
             {project.name}
             <span aria-hidden className="ml-3 inline-block font-sans text-[0.5em] font-light transition-transform duration-300 group-hover:translate-x-2">
               ↗
@@ -67,7 +67,7 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            className="label mt-5 self-start border-b border-line-strong pb-1 transition-colors hover:border-accent"
+            className="label mt-5 self-start border-b border-line-strong pb-1 transition-colors hover:border-paper"
           >
             {open ? "− Less" : "+ More detail"}
           </button>

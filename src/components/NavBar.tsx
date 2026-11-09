@@ -14,7 +14,7 @@ export function NavBar() {
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-ink">
       <div className="flex items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#top" className="display text-[1.35rem] leading-none transition-colors duration-200 hover:text-accent">
+        <a href="#top" className="display text-[1.35rem] leading-none transition-colors duration-200 hover:text-mute">
           Suraj <em>Patel</em>
         </a>
         <nav className="flex items-center gap-5 sm:gap-7">
@@ -22,7 +22,7 @@ export function NavBar() {
             <a
               key={link.href}
               href={link.href}
-              className={`label transition-colors duration-200 hover:text-accent ${link.href === "#experience" ? "hidden sm:inline" : ""}`}
+              className={`label transition-colors duration-200 hover:text-mute ${link.href === "#experience" ? "hidden sm:inline" : ""}`}
             >
               <Scramble text={link.label} trigger="hover" />
             </a>
@@ -31,7 +31,7 @@ export function NavBar() {
             href="/Suraj_Patel_Resume.pdf"
             target="_blank"
             rel="noreferrer"
-            className="label hidden transition-colors duration-200 hover:text-accent sm:inline"
+            className="label hidden transition-colors duration-200 hover:text-mute sm:inline"
           >
             <Scramble text="Résumé" trigger="hover" /> <span aria-hidden>↗</span>
           </a>
