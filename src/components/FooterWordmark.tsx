@@ -55,7 +55,7 @@ export function FooterWordmark() {
   }, [progress]);
 
   return (
-    <div ref={ref} aria-hidden className="@container mx-3 pb-4 pt-32 sm:mx-4 sm:pb-6 sm:pt-48">
+    <div ref={ref} aria-hidden className="@container wrap pb-[var(--space-lg)] pt-[var(--space-2xl)] sm:pt-[var(--space-3xl)]">
       <p className="hero-type select-none whitespace-nowrap text-[calc(100cqw/9.46)] leading-none">
         <Word progress={progress} range={[0.2, 0.8]} reduce={reduce}>
           Suraj

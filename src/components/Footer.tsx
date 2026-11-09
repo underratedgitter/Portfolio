@@ -11,23 +11,24 @@ const YEAR = new Date().getFullYear();
 
 export function Footer() {
   return (
-    <footer>
-      <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
-          {LINKS.map((link) => (
+    <footer className="surface-paper">
+      <ul className="wrap grid grid-cols-2 lg:grid-cols-4">
+        {LINKS.map((link) => (
+          <li key={link.label} className="border-t border-ink/35">
             <a
-              key={link.label}
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="label transition-colors duration-200 hover:text-mute"
+              className="display block py-[var(--space-xl)] text-[2.4rem] transition-colors duration-200 hover:text-ink-mute sm:text-[3.2rem]"
             >
               {link.label}
             </a>
-          ))}
-        </div>
-        <p className="label text-faint">© {YEAR} · Bharuch, India</p>
-      </div>
+          </li>
+        ))}
+      </ul>
+      <p className="wrap label pb-[var(--space-lg)] text-ink-mute">
+        © {YEAR} Suraj Patel, Bharuch, India
+      </p>
     </footer>
   );
 }

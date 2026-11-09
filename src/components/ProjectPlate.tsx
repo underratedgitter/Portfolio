@@ -2,8 +2,8 @@ import { useRef, type ReactNode } from "react";
 import * as m from "motion/react-m";
 import { useInView, useReducedMotion, type Easing, type Variants } from "motion/react";
 
-const FONT = "'Geist Mono', ui-monospace, monospace";
-const SERIF = "'Instrument Serif', 'Times New Roman', serif";
+const FONT = "var(--font-mono)";
+const SERIF = "var(--font-display)";
 const EASE: Easing = [0.65, 0, 0.35, 1];
 const STEP = 0.14;
 
@@ -40,8 +40,8 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
         y={y}
         width={w}
         height={h}
-        fill="#0b0b0a"
-        stroke="#f3efe6"
+        className="fill-ink"
+        stroke="currentColor"
         strokeWidth="1"
         strokeDasharray={dashed ? "4 4" : undefined}
         variants={dashed ? fade : draw}
@@ -52,8 +52,8 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
         y={y + h / 2 + 4}
         textAnchor="middle"
         fontSize="12"
-        fill="#f3efe6"
-        fontFamily={FONT}
+        fill="currentColor"
+        style={{ fontFamily: FONT }}
         letterSpacing="0.02em"
         variants={fade}
         custom={s}
@@ -66,7 +66,7 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
 
 function Note({ x, y, children, anchor = "start", s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; s: number }) {
   return (
-    <m.text x={x} y={y} fontSize="16" fill="#f3efe6" fillOpacity="0.6" fontFamily={SERIF} fontStyle="italic" textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize="16" fill="currentColor" fillOpacity="0.6" style={{ fontFamily: SERIF }} fontStyle="italic" textAnchor={anchor} variants={fade} custom={s}>
       {children}
     </m.text>
   );
@@ -74,7 +74,7 @@ function Note({ x, y, children, anchor = "start", s }: { x: number; y: number; c
 
 function Mono({ x, y, children, anchor = "start", dim, s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; dim?: boolean; s: number }) {
   return (
-    <m.text x={x} y={y} fontSize={dim ? 11 : 12} fill="#f3efe6" fillOpacity={dim ? 0.55 : 1} fontFamily={FONT} textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize={dim ? 11 : 12} fill="currentColor" fillOpacity={dim ? 0.55 : 1} style={{ fontFamily: FONT }} textAnchor={anchor} variants={fade} custom={s}>
       {children}
     </m.text>
   );
@@ -82,7 +82,7 @@ function Mono({ x, y, children, anchor = "start", dim, s }: { x: number; y: numb
 
 function Headline({ x, y, children, anchor = "start", s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle"; s: number }) {
   return (
-    <m.text x={x} y={y} fontSize="22" fill="#f3efe6" fontFamily={SERIF} textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize="22" fill="currentColor" style={{ fontFamily: SERIF }} textAnchor={anchor} variants={fade} custom={s}>
       {children}
     </m.text>
   );
@@ -91,8 +91,8 @@ function Headline({ x, y, children, anchor = "start", s }: { x: number; y: numbe
 function Arrow({ d, id, dashed, s }: { d: string; id: string; dashed?: boolean; s: number }) {
   return (
     <g>
-      <m.path d={d} stroke="#f3efe6" strokeWidth="1" fill="none" strokeDasharray={dashed ? "4 4" : undefined} variants={dashed ? fade : draw} custom={s} />
-      <m.path d={d} stroke="#f3efe6" strokeOpacity={0} fill="none" markerEnd={`url(#arrow-${id})`} variants={arrowHead} custom={s} />
+      <m.path d={d} stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray={dashed ? "4 4" : undefined} variants={dashed ? fade : draw} custom={s} />
+      <m.path d={d} stroke="currentColor" strokeOpacity={0} fill="none" markerEnd={`url(#arrow-${id})`} variants={arrowHead} custom={s} />
     </g>
   );
 }
@@ -103,7 +103,7 @@ function Frame({ id, fig, title, children }: { id: string; fig: string; title: s
   return (
     <m.svg
       viewBox="0 0 640 480"
-      className="block h-auto w-full"
+      className="block h-auto w-full text-paper"
       role="img"
       aria-label={`${title} diagram`}
       initial={reduce ? false : "hidden"}
@@ -113,10 +113,10 @@ function Frame({ id, fig, title, children }: { id: string; fig: string; title: s
     >
       <defs>
         <marker id={`arrow-${id}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="#f3efe6" />
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor" />
         </marker>
       </defs>
-      <rect width="640" height="480" fill="#0b0b0a" />
+      <rect width="640" height="480" className="fill-ink" />
       <Mono x={24} y={36} dim s={0}>
         {fig}
       </Mono>
@@ -133,14 +133,14 @@ function AegisPlate() {
   const stages = [
     { y: 98, label: "01  detect", note: "threshold + rolling z-score" },
     { y: 178, label: "02  correlate", note: "one incident, not ten alerts" },
-    { y: 258, label: "03  investigate", note: "metrics · logs · runbooks" },
+    { y: 258, label: "03  investigate", note: "metrics, logs, runbooks" },
     { y: 338, label: "04  approve", note: "named approver, second call", dashed: true },
   ];
   return (
     <Frame id={id} fig="Fig. 01" title="Incident flow">
       <Box x={40} y={130} w={120} h={40} label="checkout" s={0} />
       <Box x={40} y={210} w={120} h={40} label="inventory" s={0.4} />
-      <m.path d="M160 150 H195 V120 M160 230 H195 V120" stroke="#f3efe6" fill="none" variants={draw} custom={1} />
+      <m.path d="M160 150 H195 V120 M160 230 H195 V120" stroke="currentColor" fill="none" variants={draw} custom={1} />
       <Arrow id={id} d="M195 120 H228" s={1.5} />
       {stages.map((stage, i) => {
         const s = 2 + i * 1.2;
@@ -155,7 +155,7 @@ function AegisPlate() {
         );
       })}
       <Note x={428} y={303} s={5.1}>
-        · incident timeline
+        incident timeline
       </Note>
       <Headline x={320} y={446} anchor="middle" s={7.2}>
         bounded remediation
@@ -170,14 +170,14 @@ function PipelinePlate() {
   const stages = [
     { x: 100, w: 110, label: "lint & test" },
     { x: 230, w: 110, label: "audit" },
-    { x: 360, w: 120, label: "build · scan" },
+    { x: 360, w: 120, label: "build and scan" },
     { x: 500, w: 110, label: "deploy" },
   ];
   const ticks = [0, 1, 2, 3, 4, 5];
 
   return (
     <Frame id={id} fig="Fig. 02" title="Push to production">
-      <m.circle cx="50" cy="200" r="16" fill="#0b0b0a" stroke="#f3efe6" variants={draw} custom={0} />
+      <m.circle cx="50" cy="200" r="16" className="fill-ink" stroke="currentColor" variants={draw} custom={0} />
       <Mono x={50} y={243} anchor="middle" s={0}>
         push
       </Mono>
@@ -206,12 +206,12 @@ function PipelinePlate() {
       </Note>
 
       <Headline x={100} y={368} s={4.6}>
-        push → live, under five minutes
+        push to live, under five minutes
       </Headline>
-      <m.line x1="100" y1="390" x2="610" y2="390" stroke="#f3efe6" variants={draw} custom={5} />
+      <m.line x1="100" y1="390" x2="610" y2="390" stroke="currentColor" variants={draw} custom={5} />
       {ticks.map((t) => (
         <g key={t}>
-          <m.line x1={100 + t * 102} y1="384" x2={100 + t * 102} y2="396" stroke="#f3efe6" variants={draw} custom={5.3 + t * 0.2} />
+          <m.line x1={100 + t * 102} y1="384" x2={100 + t * 102} y2="396" stroke="currentColor" variants={draw} custom={5.3 + t * 0.2} />
           <Mono x={100 + t * 102} y={420} anchor="middle" dim s={5.3 + t * 0.2}>
             {`${t} min`}
           </Mono>
@@ -236,7 +236,7 @@ function TimelineDot() {
       cx="100"
       cy="390"
       r="5"
-      fill="#f3efe6"
+      fill="currentColor"
       initial={{ x: 0, opacity: 0 }}
       animate={onScreen ? { x: [0, 510], opacity: [0, 1, 1, 0] } : { x: 0, opacity: 0 }}
       transition={onScreen ? { delay: 2.2, duration: 2.8, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" } : { duration: 0 }}
@@ -252,12 +252,12 @@ function TerraformPlate() {
         internet
       </Mono>
       <Arrow id={id} d="M370 86 V118" s={0.4} />
-      <m.rect x="170" y="100" width="420" height="300" fill="none" stroke="#f3efe6" strokeDasharray="4 4" variants={fade} custom={0.6} />
+      <m.rect x="170" y="100" width="420" height="300" fill="none" stroke="currentColor" strokeDasharray="4 4" variants={fade} custom={0.6} />
       <Note x={582} y={392} anchor="end" s={0.8}>
         VPC
       </Note>
-      <m.rect x="190" y="180" width="190" height="190" fill="none" stroke="#f3efe6" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.2} />
-      <m.rect x="390" y="180" width="180" height="190" fill="none" stroke="#f3efe6" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.4} />
+      <m.rect x="190" y="180" width="190" height="190" fill="none" stroke="currentColor" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.2} />
+      <m.rect x="390" y="180" width="180" height="190" fill="none" stroke="currentColor" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.4} />
       <Note x={200} y={360} s={1.4}>
         zone a
       </Note>
@@ -267,15 +267,15 @@ function TerraformPlate() {
       <Box x={210} y={120} w={340} h={40} label="application load balancer" s={2} />
       <Arrow id={id} d="M285 160 V238" s={2.8} />
       <Arrow id={id} d="M480 160 V238" s={3} />
-      <Box x={215} y={240} w={140} h={56} label="ECS · EC2" s={3.4} />
-      <Box x={410} y={240} w={140} h={56} label="ECS · EC2" s={3.6} />
+      <Box x={215} y={240} w={140} h={56} label="ECS on EC2" s={3.4} />
+      <Box x={410} y={240} w={140} h={56} label="ECS on EC2" s={3.6} />
       <Note x={380} y={220} anchor="middle" s={3.6}>
         ingress: ALB only
       </Note>
       <Box x={24} y={180} w={120} h={40} label="ECR" s={4.2} />
       <Box x={24} y={260} w={120} h={40} label="CloudWatch" s={4.5} />
       <Box x={24} y={340} w={120} h={40} label="S3 + lock" s={4.8} />
-      <m.path d="M215 268 H170 V200 H144 M170 268 V280 H144" stroke="#f3efe6" strokeOpacity="0.6" fill="none" variants={draw} custom={5.2} />
+      <m.path d="M215 268 H170 V200 H144 M170 268 V280 H144" stroke="currentColor" strokeOpacity="0.6" fill="none" variants={draw} custom={5.2} />
       <Headline x={320} y={446} anchor="middle" s={6}>
         CI plans every pull request through OIDC. No long-lived keys.
       </Headline>
@@ -295,7 +295,7 @@ function RagPlate() {
       <Arrow id={id} d="M150 118 H174" s={0.4} />
       <Box x={176} y={96} w={126} h={44} label="transcribe" s={0.7} />
       <Arrow id={id} d="M302 118 H326" s={1.1} />
-      <Box x={328} y={96} w={126} h={44} label="chunk · embed" s={1.4} />
+      <Box x={328} y={96} w={126} h={44} label="chunk and embed" s={1.4} />
       <Arrow id={id} d="M454 118 H478" s={1.8} />
       <Box x={480} y={96} w={136} h={44} label="vector index" s={2.1} />
       <Note x={548} y={168} s={2.6}>
@@ -315,16 +315,16 @@ function RagPlate() {
       <Mono x={24} y={352} s={barStep - 1}>
         CPU
       </Mono>
-      <m.rect x="90" y="340" height="16" fill="#f3efe6" fillOpacity="0.25" variants={bar} custom={{ w: 510, s: barStep, dur: cpuDuration }} />
+      <m.rect x="90" y="340" height="16" fill="currentColor" fillOpacity="0.25" variants={bar} custom={{ w: 510, s: barStep, dur: cpuDuration }} />
       <Mono x={606} y={376} anchor="end" dim s={barStep + cpuDuration / STEP - 1.5}>
         5:00
       </Mono>
       <Mono x={24} y={412} s={barStep - 1}>
         GPU
       </Mono>
-      <m.rect x="90" y="400" height="16" fill="#f3efe6" variants={bar} custom={{ w: gpuWidth, s: barStep, dur: 0.35 }} />
+      <m.rect x="90" y="400" height="16" fill="currentColor" variants={bar} custom={{ w: gpuWidth, s: barStep, dur: 0.35 }} />
       <Mono x={100 + gpuWidth} y={413} s={barStep + 0.4}>
-        0:20 — 15× faster
+        0:20, 15× faster
       </Mono>
     </Frame>
   );

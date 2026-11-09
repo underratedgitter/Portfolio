@@ -15,7 +15,7 @@ export const profile = {
 export const experience = [
   {
     id: "dtech",
-    range: "Aug 2026 — present",
+    range: "Aug 2026 to present",
     role: "Software & Solutions Architect Intern",
     org: "D-Tech Solution Integrators",
     location: "Bharuch, India",
@@ -26,16 +26,16 @@ export const experience = [
   {
     id: "bindu",
     range: "Feb 2026",
-    role: "Open Source Contributor — Bindu",
+    role: "Open Source Contributor, Bindu",
     org: "GetBindu/Bindu",
     location: "Remote",
     status: "merged",
     description:
-      "Replaced generic Exception catches with specific exception types to improve Python error handling; clarified setup docs for Hindi-speaking users (API key configuration, free OpenRouter model options). Bindu is the identity, communication, and payments layer for AI agents — 9.3k stars, 440 forks.",
+      "Replaced generic Exception catches with specific exception types to improve Python error handling; clarified setup docs for Hindi-speaking users (API key configuration, free OpenRouter model options). Bindu is the identity, communication, and payments layer for AI agents, with 9.3k stars and 440 forks.",
   },
   {
     id: "gdsc",
-    range: "Aug 2023 — Jan 2024",
+    range: "Aug 2023 to Jan 2024",
     role: "Cloud Event Manager",
     org: "Google Developer Student Club (GDSC), P.P. Savani University",
     location: "Surat, India",
@@ -46,7 +46,7 @@ export const experience = [
   {
     id: "accenture",
     range: "Oct 2023",
-    role: "Data Analytics & Visualization — Job Simulation",
+    role: "Data Analytics & Visualization, Job Simulation",
     org: "Accenture North America / Forage",
     location: "Remote",
     status: "complete",
@@ -75,9 +75,9 @@ export const projects = [
     description:
       "A full observability and incident-response stack watching a checkout-and-inventory microservice pair. A detection-and-correlation engine pairs threshold alerts with a rolling z-score anomaly detector, merging related signals into one root-caused incident instead of duplicate alerts.",
     details: [
-      "An evidence-citing investigator with four read-only tools (metrics, logs, runbooks, incident timeline) assembles auditable evidence before proposing a remediation, behind a human-approval safety gate — every fix is a bounded, allowlisted action requiring a named approver and a second API call, with no shell, Docker socket, or arbitrary command access.",
+      "An evidence-citing investigator with four read-only tools (metrics, logs, runbooks, incident timeline) assembles auditable evidence before proposing a remediation, behind a human-approval safety gate: every fix is a bounded, allowlisted action requiring a named approver and a second API call, with no shell, Docker socket, or arbitrary command access.",
       "Bounded chaos injection (latency, 5xx errors, dependency failure, CPU stress) validates detection and MTTR end to end, with incident history and MTTR calculation persisted in SQLite.",
-      "Runs fully offline — a local fallback mode completes the whole detect → investigate → approve workflow deterministically, with no API key required.",
+      "Runs fully offline: a local fallback mode completes the whole detect, investigate and approve workflow deterministically, with no API key required.",
     ],
     featured: true,
   },
@@ -89,11 +89,11 @@ export const projects = [
     href: "https://github.com/underratedgitter/CI-CD-Pipeline-Automation-with-Docker-Cloud-Deployment",
     stack: ["Node.js", "Express", "Docker", "Kubernetes", "Helm", "GitHub Actions", "Prometheus", "Grafana"],
     description:
-      "A containerized Node/Express API on a multi-stage Alpine image — non-root user, layer caching tuned for rebuild speed. A four-stage GitHub Actions pipeline (lint & test → security audit → build, scan & push → deploy) takes code from push to live in under 5 minutes.",
+      "A containerized Node/Express API on a multi-stage Alpine image: non-root user, layer caching tuned for rebuild speed. A four-stage GitHub Actions pipeline (lint & test; security audit; build, scan & push; deploy) takes code from push to live in under 5 minutes.",
     details: [
-      "Trivy scans every image before it ships, and the image is deployed by digest rather than tag, so what runs is exactly what was scanned. Docker Hub and deploy-hook auth route through GitHub Encrypted Secrets — no hardcoded credentials.",
+      "Trivy scans every image before it ships, and the image is deployed by digest rather than tag, so what runs is exactly what was scanned. Docker Hub and deploy-hook auth route through GitHub Encrypted Secrets, so there are no hardcoded credentials.",
       "Prometheus scraping with Grafana dashboards and alert rules that fire on the things that actually page you: latency, error rate, heap growth, event-loop lag, and traffic falling off a cliff.",
-      "A Helm chart runs the same service on Kubernetes — HPA, disruption budget, network policy, ServiceMonitor, and a `helm test` that fails the release if the endpoints are wrong. Moving there is what exposed a readiness probe returning 200 while the pod drained.",
+      "A Helm chart runs the same service on Kubernetes: HPA, disruption budget, network policy, ServiceMonitor, and a `helm test` that fails the release if the endpoints are wrong. Moving there is what exposed a readiness probe returning 200 while the pod drained.",
     ],
     featured: true,
   },
@@ -105,10 +105,10 @@ export const projects = [
     href: "https://github.com/underratedgitter/terraform-aws-ecs-platform",
     stack: ["Terraform", "AWS", "ECS", "IAM", "OIDC"],
     description:
-      "Terraform that provisions a working AWS environment for a containerized web service: network, container hosts, load balancer, registry, logs, and alarms. Everything is a module, state lives in S3 with locking, and CI validates and plans on every pull request through GitHub OIDC — no long-lived AWS key anywhere.",
+      "Terraform that provisions a working AWS environment for a containerized web service: network, container hosts, load balancer, registry, logs, and alarms. Everything is a module, state lives in S3 with locking, and CI validates and plans on every pull request through GitHub OIDC, with no long-lived AWS key anywhere.",
     details: [
       "VPC across two availability zones, an ECS cluster on EC2 with a capacity provider, an ALB, ECR with a lifecycle policy, scoped IAM, and CloudWatch alarms.",
-      "Written for the free tier and honest about the trade that makes it fit: no NAT gateway by default, so hosts sit in public subnets whose only ingress rule sources from the load balancer's security group — one flag moves them private.",
+      "Written for the free tier and honest about the trade that makes it fit: no NAT gateway by default, so hosts sit in public subnets whose only ingress rule sources from the load balancer's security group; one flag moves them private.",
       "The execution role is hand-written and scoped to a single repository ARN rather than the managed policy, which would grant ECR read across the whole account.",
     ],
     featured: true,
@@ -123,8 +123,8 @@ export const projects = [
     description:
       "Drop in a lecture recording, ask a question, get the answer and the exact moment it was said. Speech transcription feeds a vector index; queries return in under a second across 1,000+ text chunks.",
     details: [
-      "Batch chunking and parallel processing on CUDA cut a run from 5 minutes on CPU to 20 seconds on GPU — a 15x speedup.",
-      "End-to-end pipeline: speech transcription → vector embeddings → timestamp-based retrieval, turning passive video into an interactive Q&A system.",
+      "Batch chunking and parallel processing on CUDA cut a run from 5 minutes on CPU to 20 seconds on GPU, a 15x speedup.",
+      "End-to-end pipeline: speech transcription, then vector embeddings, then timestamp-based retrieval, turning passive video into an interactive Q&A system.",
     ],
     featured: true,
   },
@@ -136,7 +136,7 @@ export const projects = [
     href: "https://github.com/underratedgitter/devops-lab",
     stack: ["Python", "Bash", "Prometheus", "Docker"],
     description:
-      "Sixteen guides with real depth — Linux commands and permissions, TCP/IP, Kubernetes concepts, Terraform state, Dockerfile practices, observability — five of them written out of the pipeline and Aegis projects, so the examples are code that actually runs. The README says plainly which directories are still stubs.",
+      "Sixteen guides with real depth (Linux commands and permissions, TCP/IP, Kubernetes concepts, Terraform state, Dockerfile practices, observability), five of them written out of the pipeline and Aegis projects, so the examples are code that actually runs. The README says plainly which directories are still stubs.",
     details: [],
     featured: false,
   },
@@ -148,7 +148,7 @@ export const projects = [
     href: "https://github.com/underratedgitter/sundown",
     stack: ["HTML5", "CSS3", "JavaScript", "Locomotive Scroll", "Swiper.js"],
     description:
-      "An animation-rich, front-end-only recreation of the Sundown Studios agency site — scroll-driven effects, an animated splash loader, infinite marquee, and hover-driven image previews, all in vanilla web technologies.",
+      "An animation-rich, front-end-only recreation of the Sundown Studios agency site: scroll-driven effects, an animated splash loader, infinite marquee, and hover-driven image previews, all in vanilla web technologies.",
     details: [],
     featured: false,
   },
@@ -209,5 +209,5 @@ export const certifications = [
 export const education = {
   degree: "Bachelor of Technology, Computer Science & Engineering",
   school: "P.P. Savani University, Surat, India",
-  range: "Jul 2023 — Jun 2027",
+  range: "Jul 2023 to Jun 2027",
 };

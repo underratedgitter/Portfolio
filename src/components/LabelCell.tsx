@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./Reveal";
-import { Rule } from "./Rule";
-import { Scramble } from "./Scramble";
 
 type Align = "start" | "indent" | "end";
 
@@ -12,23 +10,14 @@ const ALIGN: Record<Align, string> = {
   end: "md:text-right",
 };
 
-export function LabelCell({ index, title, note, id, align = "start" }: { index: string; title: ReactNode; note?: string; id?: string; align?: Align }) {
+/** A section head: the serif title at section scale with an optional plain-text note beneath. Inherits the surface's colours. */
+export function LabelCell({ title, note, id, align = "start" }: { title: ReactNode; note?: string; id?: string; align?: Align }) {
   return (
-    <div id={id} className="relative scroll-mt-14 px-4 pb-6 pt-4 sm:px-6 sm:pb-8">
-      <div className="flex items-start justify-between gap-6">
-        <span className="label text-faint">
-          <Scramble text={`(${index})`} />
-        </span>
-        {note && (
-          <span className="label text-right text-faint">
-            <Scramble text={note} delay={120} />
-          </span>
-        )}
-      </div>
+    <div id={id} className="wrap scroll-mt-14 pb-[var(--space-xl)] pt-[var(--section-gap-s)]">
       <Reveal>
-        <h2 className={`display mt-20 text-[3.8rem] sm:mt-28 sm:text-[6.5rem] ${ALIGN[align]}`}>{title}</h2>
+        <h2 className={`display text-[3.8rem] sm:text-[6.5rem] ${ALIGN[align]}`}>{title}</h2>
+        {note && <p className={`label mt-[var(--space-lg)] opacity-60 ${align === "end" ? "md:text-right" : ""}`}>{note}</p>}
       </Reveal>
-      <Rule />
     </div>
   );
 }

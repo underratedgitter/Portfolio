@@ -3,40 +3,21 @@ import { LabelCell } from "./LabelCell";
 import { Reveal } from "./Reveal";
 import { Rule } from "./Rule";
 
-// Large-screen column spans out of 12, in reading order: rows of 7|5, 4|8, then 3|5|4.
-const SPANS = [7, 5, 4, 8, 3, 5, 4];
-const LG_SPAN: Record<number, string> = { 3: "lg:col-span-3", 4: "lg:col-span-4", 5: "lg:col-span-5", 7: "lg:col-span-7", 8: "lg:col-span-8" };
-
-// A cell gets a right-hand rule on large screens unless it closes its row of 12.
-// Derived once from the constant spans, so render stays free of mutation.
-const ENDS_ROW = SPANS.map((_, i) => SPANS.slice(0, i + 1).reduce((sum, span) => sum + span, 0) % 12 === 0);
+// Large-screen column spans out of 12, in reading order: rows of 7|5, 5|7, then 4|4|4, so no row ends on a lone group.
+const LG_SPAN = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7", "lg:col-span-4", "lg:col-span-4", "lg:col-span-4"];
 
 export function Skills() {
   return (
-    <section>
-      <LabelCell
-        id="toolkit"
-        index="03"
-        note={`${skillGroups.length} disciplines`}
-        title={
-          <>
-            The <em>toolkit</em>
-          </>
-        }
-      />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-12">
+    <section className="pb-[var(--section-gap)]">
+      <LabelCell id="toolkit" note={`${skillGroups.length} disciplines`} title="The toolkit" />
+      <div className="wrap grid gap-x-[var(--space-xl)] gap-y-[var(--space-xl)] sm:grid-cols-2 lg:grid-cols-12">
         {skillGroups.map((group, i) => (
-          <Reveal key={group.title} className={`relative px-4 pb-8 pt-4 sm:px-6 ${LG_SPAN[SPANS[i % SPANS.length]]}`}>
-            <Rule />
-            <Rule
-              side="right"
-              className={`hidden ${i % 2 === 0 ? "sm:block" : "sm:hidden"} ${ENDS_ROW[i % SPANS.length] ? "lg:hidden" : "lg:block"}`}
-            />
-            <p className="label text-faint">{String(i + 1).padStart(2, "0")}</p>
-            <h3 className="display mt-8 text-[2rem] leading-none">{group.title}</h3>
-            <ul className="mt-5 flex flex-wrap gap-1.5">
+          <Reveal key={group.title} className={`relative pt-6 ${LG_SPAN[i]}`}>
+            <Rule side="top" />
+            <h3 className="display text-[2rem] leading-none">{group.title}</h3>
+            <ul className="mt-5 grid gap-x-6 gap-y-1.5 sm:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]">
               {group.items.map((item) => (
-                <li key={item} className="rounded-full border border-line px-2.5 py-1 text-[13px] leading-snug text-mute transition-colors duration-200 hover:border-line-strong hover:text-paper">
+                <li key={item} className="label text-mute">
                   {item}
                 </li>
               ))}

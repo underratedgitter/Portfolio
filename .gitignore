@@ -25,3 +25,5 @@ dist-ssr
 
 # Local tool files
 .claudeignore
+
+.hallmark/
