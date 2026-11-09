@@ -7,12 +7,12 @@ const POSITION: Record<Side, string> = {
   right: "inset-y-0 right-0 w-px",
 };
 
-/** A static 1px white hairline along one edge. The parent must be `relative`. */
+/** A static 1px hairline along one edge. The parent must be `relative`. */
 export function Rule({ side = "bottom", className = "", soft = false }: { side?: Side; className?: string; soft?: boolean }) {
   return (
     <span
       aria-hidden
-      className={`pointer-events-none absolute z-10 ${POSITION[side]} ${soft ? "bg-white/30" : "bg-white"} ${className}`}
+      className={`pointer-events-none absolute z-10 ${POSITION[side]} ${soft ? "bg-line" : "bg-rule"} ${className}`}
     />
   );
 }

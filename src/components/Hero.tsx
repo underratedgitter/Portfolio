@@ -74,19 +74,19 @@ export function Hero() {
           <div key={m.k} className="relative px-4 py-3 sm:px-6">
             {i !== 3 && <Rule side="right" className={i === 1 ? "hidden md:block" : ""} />}
             {i < 2 && <Rule className="md:hidden" />}
-            <dt className="label text-white/50">{m.k}</dt>
-            <dd className="label mt-1.5 text-white">{typeof m.v === "string" ? <Scramble text={m.v} delay={250 + i * 120} /> : m.v}</dd>
+            <dt className="label text-faint">{m.k}</dt>
+            <dd className="label mt-1.5 text-paper">{typeof m.v === "string" ? <Scramble text={m.v} delay={250 + i * 120} /> : m.v}</dd>
           </div>
         ))}
         <Rule />
       </m.dl>
 
       <div className="relative">
-        <SystemGraphic className="pointer-events-none absolute inset-0 h-full w-full text-white opacity-45 [mask-composite:intersect] [mask-image:linear-gradient(to_left,#000_28%,transparent_62%),linear-gradient(to_bottom,#000_55%,transparent_80%)]" />
+        <SystemGraphic className="pointer-events-none absolute inset-0 h-full w-full text-paper opacity-45 [mask-composite:intersect] [mask-image:linear-gradient(to_left,#000_28%,transparent_62%),linear-gradient(to_bottom,#000_55%,transparent_80%)]" />
 
         <div className="relative px-4 pt-10 sm:px-6 sm:pt-14">
-          <m.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-black px-2 py-1.5 text-white/70">
-            <span className="h-1.5 w-1.5 rounded-full bg-white" />
+          <m.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-ink px-2 py-1.5 text-mute">
+            <span aria-hidden className="signal-dot" />
             Open to DevOps, cloud &amp; SRE roles
           </m.p>
 
@@ -101,7 +101,7 @@ export function Hero() {
             </h1>
           </div>
 
-          <m.div {...fade(0.45)} className="label relative mt-6 flex items-center justify-between pb-4 pt-3 text-white/55 sm:mt-8">
+          <m.div {...fade(0.45)} className="label relative mt-6 flex items-center justify-between pb-4 pt-3 text-faint sm:mt-8">
             <Rule side="top" soft />
             <span>Portfolio · {YEAR}</span>
             <span className="hidden sm:inline">Pipelines · Telemetry · Reliability</span>
@@ -110,12 +110,12 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative grid bg-black lg:grid-cols-12">
+      <div className="relative grid bg-ink lg:grid-cols-12">
         <Rule side="top" />
         <m.div {...fade(0.55)} className="relative px-4 pb-10 pt-6 sm:px-6 lg:col-span-8">
           <Rule className="lg:hidden" />
           <Rule side="right" className="hidden lg:block" />
-          <p className="label text-white/50">Statement</p>
+          <p className="label text-faint">Statement</p>
           <p className="display mt-5 max-w-[20ch] text-[2.4rem] leading-[0.98] sm:text-[3.4rem]">
             I build the <em>pipelines</em> that ship code, the <em>telemetry</em> that says it broke, and the <em>systems</em> that work out why.
           </p>
@@ -130,7 +130,7 @@ export function Hero() {
         </m.div>
 
         <m.nav {...fade(0.7)} aria-label="Sections" className="flex flex-col lg:col-span-4">
-          <p className="label relative px-4 py-3 text-white/50 sm:px-6">
+          <p className="label relative px-4 py-3 text-faint sm:px-6">
             Index
             <Rule />
           </p>
@@ -138,11 +138,11 @@ export function Hero() {
             <a
               key={item.n}
               href={item.href}
-              className="group relative flex flex-1 items-center justify-between px-4 py-4 transition-colors duration-300 hover:bg-white hover:text-black sm:px-6"
+              className="group relative flex flex-1 items-center justify-between px-4 py-4 transition-colors duration-300 hover:bg-paper hover:text-ink sm:px-6"
             >
               {i < INDEX.length - 1 && <Rule />}
               <span className="flex items-baseline gap-5">
-                <span className="label opacity-50">{item.n}</span>
+                <span className="label opacity-60 transition-colors duration-300 group-hover:text-accent group-hover:opacity-100">{item.n}</span>
                 <span className="display text-[2rem] leading-none sm:text-[2.4rem]">{item.label}</span>
               </span>
               <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1">→</span>

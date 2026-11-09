@@ -15,8 +15,8 @@ function App() {
     // Only the animation features this site uses (no layout projection or drag), so less JS to load and run.
     // `strict` makes any stray full `motion.*` component fail loudly instead of pulling the full bundle back in.
     <LazyMotion features={domAnimation} strict>
-      <div className="min-h-screen overflow-x-clip bg-black pt-3 text-white sm:pt-4">
-        <div className="mx-3 border-x border-b border-white sm:mx-4">
+      <div className="min-h-screen overflow-x-clip bg-ink pt-3 text-paper sm:pt-4">
+        <div className="mx-3 border-x border-b border-rule sm:mx-4">
           <NavBar />
           <main>
             <Hero />

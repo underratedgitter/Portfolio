@@ -20,13 +20,13 @@ export function Footer() {
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="label transition-opacity duration-200 hover:opacity-50"
+              className="label transition-colors duration-200 hover:text-accent"
             >
               {link.label}
             </a>
           ))}
         </div>
-        <p className="label text-white/50">© {YEAR} · Bharuch, India</p>
+        <p className="label text-faint">© {YEAR} · Bharuch, India</p>
       </div>
     </footer>
   );

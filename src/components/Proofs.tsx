@@ -28,8 +28,8 @@ export function Proofs() {
             {i % 2 === 0 && <Rule side="right" className="hidden md:block" />}
             <p className="display max-w-[22ch] text-[2rem] leading-[1] sm:text-[2.35rem]">{proof.claim}</p>
             <div className="flex items-center justify-between gap-4">
-              <p className="label text-white/60">{proof.source}</p>
-              <p className="label text-white/50">{String(i + 1).padStart(2, "0")}</p>
+              <p className="label text-mute">{proof.source}</p>
+              <p className="label text-faint">{String(i + 1).padStart(2, "0")}</p>
             </div>
           </Reveal>
         ))}

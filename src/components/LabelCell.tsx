@@ -16,11 +16,11 @@ export function LabelCell({ index, title, note, id, align = "start" }: { index: 
   return (
     <div id={id} className="relative scroll-mt-14 px-4 pb-6 pt-4 sm:px-6 sm:pb-8">
       <div className="flex items-start justify-between gap-6">
-        <span className="label text-white/50">
+        <span className="label text-faint">
           <Scramble text={`(${index})`} />
         </span>
         {note && (
-          <span className="label text-right text-white/50">
+          <span className="label text-right text-faint">
             <Scramble text={note} delay={120} />
           </span>
         )}

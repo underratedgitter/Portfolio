@@ -40,8 +40,8 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
         y={y}
         width={w}
         height={h}
-        fill="#000"
-        stroke="#fff"
+        fill="#0b0b0a"
+        stroke="#f3efe6"
         strokeWidth="1"
         strokeDasharray={dashed ? "4 4" : undefined}
         variants={dashed ? fade : draw}
@@ -52,7 +52,7 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
         y={y + h / 2 + 4}
         textAnchor="middle"
         fontSize="12"
-        fill="#fff"
+        fill="#f3efe6"
         fontFamily={FONT}
         letterSpacing="0.02em"
         variants={fade}
@@ -66,7 +66,7 @@ function Box({ x, y, w, h, label, dashed, s }: { x: number; y: number; w: number
 
 function Note({ x, y, children, anchor = "start", s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; s: number }) {
   return (
-    <m.text x={x} y={y} fontSize="16" fill="#fff" fillOpacity="0.6" fontFamily={SERIF} fontStyle="italic" textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize="16" fill="#f3efe6" fillOpacity="0.6" fontFamily={SERIF} fontStyle="italic" textAnchor={anchor} variants={fade} custom={s}>
       {children}
     </m.text>
   );
@@ -74,7 +74,7 @@ function Note({ x, y, children, anchor = "start", s }: { x: number; y: number; c
 
 function Mono({ x, y, children, anchor = "start", dim, s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; dim?: boolean; s: number }) {
   return (
-    <m.text x={x} y={y} fontSize={dim ? 11 : 12} fill="#fff" fillOpacity={dim ? 0.55 : 1} fontFamily={FONT} textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize={dim ? 11 : 12} fill="#f3efe6" fillOpacity={dim ? 0.55 : 1} fontFamily={FONT} textAnchor={anchor} variants={fade} custom={s}>
       {children}
     </m.text>
   );
@@ -82,7 +82,7 @@ function Mono({ x, y, children, anchor = "start", dim, s }: { x: number; y: numb
 
 function Headline({ x, y, children, anchor = "start", s }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle"; s: number }) {
   return (
-    <m.text x={x} y={y} fontSize="22" fill="#fff" fontFamily={SERIF} textAnchor={anchor} variants={fade} custom={s}>
+    <m.text x={x} y={y} fontSize="22" fill="#f3efe6" fontFamily={SERIF} textAnchor={anchor} variants={fade} custom={s}>
       {children}
     </m.text>
   );
@@ -91,8 +91,8 @@ function Headline({ x, y, children, anchor = "start", s }: { x: number; y: numbe
 function Arrow({ d, id, dashed, s }: { d: string; id: string; dashed?: boolean; s: number }) {
   return (
     <g>
-      <m.path d={d} stroke="#fff" strokeWidth="1" fill="none" strokeDasharray={dashed ? "4 4" : undefined} variants={dashed ? fade : draw} custom={s} />
-      <m.path d={d} stroke="#fff" strokeOpacity={0} fill="none" markerEnd={`url(#arrow-${id})`} variants={arrowHead} custom={s} />
+      <m.path d={d} stroke="#f3efe6" strokeWidth="1" fill="none" strokeDasharray={dashed ? "4 4" : undefined} variants={dashed ? fade : draw} custom={s} />
+      <m.path d={d} stroke="#f3efe6" strokeOpacity={0} fill="none" markerEnd={`url(#arrow-${id})`} variants={arrowHead} custom={s} />
     </g>
   );
 }
@@ -113,10 +113,10 @@ function Frame({ id, fig, title, children }: { id: string; fig: string; title: s
     >
       <defs>
         <marker id={`arrow-${id}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="#fff" />
+          <path d="M0 0 L10 5 L0 10 z" fill="#f3efe6" />
         </marker>
       </defs>
-      <rect width="640" height="480" fill="#000" />
+      <rect width="640" height="480" fill="#0b0b0a" />
       <Mono x={24} y={36} dim s={0}>
         {fig}
       </Mono>
@@ -140,7 +140,7 @@ function AegisPlate() {
     <Frame id={id} fig="Fig. 01" title="Incident flow">
       <Box x={40} y={130} w={120} h={40} label="checkout" s={0} />
       <Box x={40} y={210} w={120} h={40} label="inventory" s={0.4} />
-      <m.path d="M160 150 H195 V120 M160 230 H195 V120" stroke="#fff" fill="none" variants={draw} custom={1} />
+      <m.path d="M160 150 H195 V120 M160 230 H195 V120" stroke="#f3efe6" fill="none" variants={draw} custom={1} />
       <Arrow id={id} d="M195 120 H228" s={1.5} />
       {stages.map((stage, i) => {
         const s = 2 + i * 1.2;
@@ -177,7 +177,7 @@ function PipelinePlate() {
 
   return (
     <Frame id={id} fig="Fig. 02" title="Push to production">
-      <m.circle cx="50" cy="200" r="16" fill="#000" stroke="#fff" variants={draw} custom={0} />
+      <m.circle cx="50" cy="200" r="16" fill="#0b0b0a" stroke="#f3efe6" variants={draw} custom={0} />
       <Mono x={50} y={243} anchor="middle" s={0}>
         push
       </Mono>
@@ -208,10 +208,10 @@ function PipelinePlate() {
       <Headline x={100} y={368} s={4.6}>
         push → live, under five minutes
       </Headline>
-      <m.line x1="100" y1="390" x2="610" y2="390" stroke="#fff" variants={draw} custom={5} />
+      <m.line x1="100" y1="390" x2="610" y2="390" stroke="#f3efe6" variants={draw} custom={5} />
       {ticks.map((t) => (
         <g key={t}>
-          <m.line x1={100 + t * 102} y1="384" x2={100 + t * 102} y2="396" stroke="#fff" variants={draw} custom={5.3 + t * 0.2} />
+          <m.line x1={100 + t * 102} y1="384" x2={100 + t * 102} y2="396" stroke="#f3efe6" variants={draw} custom={5.3 + t * 0.2} />
           <Mono x={100 + t * 102} y={420} anchor="middle" dim s={5.3 + t * 0.2}>
             {`${t} min`}
           </Mono>
@@ -236,7 +236,7 @@ function TimelineDot() {
       cx="100"
       cy="390"
       r="5"
-      fill="#fff"
+      fill="#f3efe6"
       initial={{ x: 0, opacity: 0 }}
       animate={onScreen ? { x: [0, 510], opacity: [0, 1, 1, 0] } : { x: 0, opacity: 0 }}
       transition={onScreen ? { delay: 2.2, duration: 2.8, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" } : { duration: 0 }}
@@ -252,12 +252,12 @@ function TerraformPlate() {
         internet
       </Mono>
       <Arrow id={id} d="M370 86 V118" s={0.4} />
-      <m.rect x="170" y="100" width="420" height="300" fill="none" stroke="#fff" strokeDasharray="4 4" variants={fade} custom={0.6} />
+      <m.rect x="170" y="100" width="420" height="300" fill="none" stroke="#f3efe6" strokeDasharray="4 4" variants={fade} custom={0.6} />
       <Note x={582} y={392} anchor="end" s={0.8}>
         VPC
       </Note>
-      <m.rect x="190" y="180" width="190" height="190" fill="none" stroke="#fff" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.2} />
-      <m.rect x="390" y="180" width="180" height="190" fill="none" stroke="#fff" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.4} />
+      <m.rect x="190" y="180" width="190" height="190" fill="none" stroke="#f3efe6" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.2} />
+      <m.rect x="390" y="180" width="180" height="190" fill="none" stroke="#f3efe6" strokeOpacity="0.45" strokeDasharray="2 4" variants={fade} custom={1.4} />
       <Note x={200} y={360} s={1.4}>
         zone a
       </Note>
@@ -275,7 +275,7 @@ function TerraformPlate() {
       <Box x={24} y={180} w={120} h={40} label="ECR" s={4.2} />
       <Box x={24} y={260} w={120} h={40} label="CloudWatch" s={4.5} />
       <Box x={24} y={340} w={120} h={40} label="S3 + lock" s={4.8} />
-      <m.path d="M215 268 H170 V200 H144 M170 268 V280 H144" stroke="#fff" strokeOpacity="0.6" fill="none" variants={draw} custom={5.2} />
+      <m.path d="M215 268 H170 V200 H144 M170 268 V280 H144" stroke="#f3efe6" strokeOpacity="0.6" fill="none" variants={draw} custom={5.2} />
       <Headline x={320} y={446} anchor="middle" s={6}>
         CI plans every pull request through OIDC. No long-lived keys.
       </Headline>
@@ -315,14 +315,14 @@ function RagPlate() {
       <Mono x={24} y={352} s={barStep - 1}>
         CPU
       </Mono>
-      <m.rect x="90" y="340" height="16" fill="#fff" fillOpacity="0.25" variants={bar} custom={{ w: 510, s: barStep, dur: cpuDuration }} />
+      <m.rect x="90" y="340" height="16" fill="#f3efe6" fillOpacity="0.25" variants={bar} custom={{ w: 510, s: barStep, dur: cpuDuration }} />
       <Mono x={606} y={376} anchor="end" dim s={barStep + cpuDuration / STEP - 1.5}>
         5:00
       </Mono>
       <Mono x={24} y={412} s={barStep - 1}>
         GPU
       </Mono>
-      <m.rect x="90" y="400" height="16" fill="#fff" variants={bar} custom={{ w: gpuWidth, s: barStep, dur: 0.35 }} />
+      <m.rect x="90" y="400" height="16" fill="#f3efe6" variants={bar} custom={{ w: gpuWidth, s: barStep, dur: 0.35 }} />
       <Mono x={100 + gpuWidth} y={413} s={barStep + 0.4}>
         0:20 — 15× faster
       </Mono>

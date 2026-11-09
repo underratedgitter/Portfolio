@@ -31,31 +31,33 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
       >
         <Rule className="md:hidden" />
         <Rule side={flip ? "left" : "right"} className="hidden md:block" />
-        <div className="overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]">
+        <div className="overflow-hidden border border-line transition-[transform,border-color] duration-700 ease-out-expo group-hover:scale-[1.015] group-hover:border-line-strong">
           <ProjectPlate id={project.id} />
         </div>
       </a>
 
       <div className={`flex flex-col px-4 pb-6 pt-4 sm:px-6 ${shape.drop} ${flip ? "md:order-1" : ""}`}>
         <div className="flex items-center justify-between">
-          <span className="label text-white/50">{String(index + 1).padStart(2, "0")} / Case</span>
-          <span className="label text-white/50">{project.year}</span>
+          <span className="label text-faint">
+            <span className="text-accent">{String(index + 1).padStart(2, "0")}</span> / Case
+          </span>
+          <span className="label text-faint">{project.year}</span>
         </div>
 
         <h3 className="display mt-10 text-[2.9rem] sm:text-[3.6rem]">
-          <a href={project.href} target="_blank" rel="noreferrer">
+          <a href={project.href} target="_blank" rel="noreferrer" className="transition-colors duration-300 group-hover:text-accent">
             {project.name}
             <span aria-hidden className="ml-3 inline-block font-sans text-[0.5em] font-light transition-transform duration-300 group-hover:translate-x-2">
               ↗
             </span>
           </a>
         </h3>
-        <p className="display mt-3 text-[1.5rem] italic leading-[1.05] text-white/70">{project.tagline}</p>
+        <p className="display mt-3 text-[1.5rem] italic leading-[1.05] text-mute">{project.tagline}</p>
 
-        <p className="mt-8 max-w-[54ch] text-[15px] leading-[1.55] text-white/85">{project.description}</p>
+        <p className="mt-8 body-copy max-w-[54ch] text-paper/85">{project.description}</p>
 
         {open && (
-          <ul className="mt-5 max-w-[54ch] space-y-3 border-l border-white/40 pl-4 text-[15px] leading-[1.55] text-white/70">
+          <ul className="mt-5 max-w-[54ch] space-y-3 border-l border-line-strong pl-4 body-copy text-mute">
             {project.details.map((d) => (
               <li key={d}>{d}</li>
             ))}
@@ -65,15 +67,15 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            className="label mt-5 self-start border-b border-white/40 pb-1 transition-colors hover:border-white"
+            className="label mt-5 self-start border-b border-line-strong pb-1 transition-colors hover:border-accent"
           >
             {open ? "− Less" : "+ More detail"}
           </button>
         )}
 
-        <ul className="mt-auto flex flex-wrap gap-x-4 gap-y-1.5 pt-10">
+        <ul className="mt-auto flex flex-wrap gap-2 pt-10">
           {project.stack.map((tech) => (
-            <li key={tech} className="label text-white/55">
+            <li key={tech} className="label rounded-full border border-line px-2.5 py-1.5 text-mute">
               {tech}
             </li>
           ))}
@@ -107,7 +109,7 @@ export function Projects() {
         </Reveal>
       ))}
 
-      <div className="label relative px-4 py-3 text-white/50 sm:px-6">
+      <div className="label relative px-4 py-3 text-faint sm:px-6">
         Also built
         <Rule />
       </div>
@@ -117,12 +119,12 @@ export function Projects() {
           href={project.href}
           target="_blank"
           rel="noreferrer"
-          className="group relative grid grid-cols-[3.5rem_1fr] items-baseline gap-x-4 px-4 py-5 transition-colors duration-300 hover:bg-white hover:text-black sm:grid-cols-[5rem_1fr_1fr_auto] sm:px-6"
+          className="group relative grid grid-cols-[3.5rem_1fr] items-baseline gap-x-4 px-4 py-5 transition-colors duration-300 hover:bg-paper hover:text-ink sm:grid-cols-[5rem_1fr_1fr_auto] sm:px-6"
         >
           <Rule />
           <span className="label opacity-60">{project.year}</span>
           <span className="display text-[2rem] leading-none">{project.name}</span>
-          <span className="col-start-2 mt-2 text-[15px] opacity-70 sm:col-start-3 sm:mt-0">{project.tagline}</span>
+          <span className="col-start-2 mt-2 text-[15px] opacity-75 sm:col-start-3 sm:mt-0">{project.tagline}</span>
           <span aria-hidden className="hidden text-xl transition-transform duration-300 group-hover:translate-x-1 sm:inline">↗</span>
         </a>
       ))}

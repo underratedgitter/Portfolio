@@ -24,16 +24,16 @@ export function Experience() {
         >
           <Rule />
           <div className="flex items-center gap-2 self-start md:pt-3">
-            {item.status === "current" && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
-            <p className="label text-white/70">{item.range}</p>
+            {item.status === "current" && <span aria-hidden className="signal-dot" />}
+            <p className="label text-mute">{item.range}</p>
           </div>
           <div>
             <h3 className="display text-[2.1rem] leading-[0.98] sm:text-[2.5rem]">{item.role}</h3>
-            <p className="label mt-3 text-white/50">
+            <p className="label mt-3 text-faint">
               {item.org} · {item.location}
             </p>
           </div>
-          <p className="max-w-[58ch] text-[15px] leading-[1.55] text-white/80">{item.description}</p>
+          <p className="max-w-[58ch] body-copy text-paper/85">{item.description}</p>
         </Reveal>
       ))}
     </section>

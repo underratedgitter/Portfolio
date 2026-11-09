@@ -32,11 +32,11 @@ export function Skills() {
               side="right"
               className={`hidden ${i % 2 === 0 ? "sm:block" : "sm:hidden"} ${ENDS_ROW[i % SPANS.length] ? "lg:hidden" : "lg:block"}`}
             />
-            <p className="label text-white/55">{String(i + 1).padStart(2, "0")}</p>
+            <p className="label text-faint">{String(i + 1).padStart(2, "0")}</p>
             <h3 className="display mt-8 text-[2rem] leading-none">{group.title}</h3>
-            <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5">
+            <ul className="mt-5 flex flex-wrap gap-1.5">
               {group.items.map((item) => (
-                <li key={item} className="text-[14px] leading-snug text-white/70">
+                <li key={item} className="rounded-full border border-line px-2.5 py-1 text-[13px] leading-snug text-mute transition-colors duration-200 hover:border-line-strong hover:text-paper">
                   {item}
                 </li>
               ))}
