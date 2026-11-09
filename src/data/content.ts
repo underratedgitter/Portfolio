@@ -1,5 +1,4 @@
 export const profile = {
-  name: "Suraj Patel",
   email: "sp9023156004@gmail.com",
   github: "https://github.com/underratedgitter",
   linkedin: "https://www.linkedin.com/in/thepatelsuraj",
@@ -198,12 +197,12 @@ export const skillGroups = [
 ];
 
 export const certifications = [
-  { name: "AWS Cloud Foundations", org: "Amazon Web Services", date: "May 2026" },
-  { name: "Machine Learning for Data Science Projects", org: "IBM", date: "Sep 2025" },
-  { name: "Learning Analytical Tools", org: "NPTEL", date: "Nov 2025" },
-  { name: "Business Intelligence & Analytics (BUS250)", org: "Saylor Academy", date: "Nov 2025" },
-  { name: "Affective Computing", org: "NPTEL", date: "May 2026" },
-  { name: "Android App Development", org: "Vanderbilt University", date: "Mar 2025" },
+  { name: "AWS Cloud Foundations", org: "Amazon Web Services" },
+  { name: "Machine Learning for Data Science Projects", org: "IBM" },
+  { name: "Learning Analytical Tools", org: "NPTEL" },
+  { name: "Business Intelligence & Analytics (BUS250)", org: "Saylor Academy" },
+  { name: "Affective Computing", org: "NPTEL" },
+  { name: "Android App Development", org: "Vanderbilt University" },
 ];
 
 export const education = {

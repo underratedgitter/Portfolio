@@ -34,7 +34,7 @@ The output of `npm run build` is a static site (`dist/`) — deploy it to any st
 ## Notes
 
 - Fonts are self-hosted in `public/fonts/` (no requests to Google): Instrument Serif, Geist and Geist Mono are from Google Fonts under the SIL Open Font License, loaded via `src/fonts.css`.
-- The hero name uses **Akira Expanded** by Typologic (`public/fonts/akira-expanded.woff2`, with the original `.otf` as fallback), downloaded from DaFont as the free demo. It is free for personal use only; commercial use requires the full license from https://creativemarket.com/typologic/4868098-Akira-Expanded.
+- The hero name uses **Akira Expanded** by Typologic (`public/fonts/akira-expanded.woff2`), downloaded from DaFont as the free demo. It is free for personal use only; commercial use requires the full license from https://creativemarket.com/typologic/4868098-Akira-Expanded.
 - The link preview image is `public/og-image.png` (1200×630).
 
 - The résumé linked from the nav bar is served from `public/Suraj_Patel_Resume.pdf` — replace that file to update it.
