@@ -4,9 +4,7 @@
 /* Akira Expanded (Typologic) demo: free for personal use only. Commercial use needs the full license. */
 @font-face {
   font-family: "Akira Expanded";
-  src:
-    url("/fonts/akira-expanded.woff2") format("woff2"),
-    url("/fonts/akira-expanded.otf") format("opentype");
+  src: url("/fonts/akira-expanded.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -58,6 +56,46 @@ html {
   scroll-behavior: smooth;
   color-scheme: dark;
   background: #000;
+}
+
+/* Footer wordmark. `entry` runs from the block's top touching the viewport bottom to the block fully in
+   view, which is the very bottom of the page, so the end state is always reached. */
+@supports (animation-timeline: view()) {
+  .wordmark {
+    view-timeline-name: --wordmark;
+  }
+
+  .wordmark-word {
+    /* Longhands only: the `animation` shorthand would reset each word's animation-range utility. */
+    animation-name: wordmark-rise;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --wordmark;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark-word {
+      animation-name: wordmark-fade;
+    }
+  }
+}
+
+@keyframes wordmark-rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes wordmark-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 body {

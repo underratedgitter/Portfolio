@@ -82,7 +82,8 @@ export function Hero() {
       </m.dl>
 
       <div className="relative">
-        <SystemGraphic className="pointer-events-none absolute inset-0 h-full w-full text-white opacity-45 [mask-composite:intersect] [mask-image:linear-gradient(to_left,#000_28%,transparent_62%),linear-gradient(to_bottom,#000_55%,transparent_80%)]" />
+        {/* Own GPU layer: the animated graph repaints only itself, and scrolling just moves the cached layer. */}
+        <SystemGraphic className="pointer-events-none absolute inset-0 h-full w-full text-white opacity-45 will-change-transform [mask-composite:intersect] [mask-image:linear-gradient(to_left,#000_28%,transparent_62%),linear-gradient(to_bottom,#000_55%,transparent_80%)]" />
 
         <div className="relative px-4 pt-10 sm:px-6 sm:pt-14">
           <m.p {...fade(0.2)} className="label -ml-2 inline-flex items-center gap-2 bg-black px-2 py-1.5 text-white/70">
