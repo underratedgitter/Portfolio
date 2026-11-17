@@ -1,11 +1,11 @@
 export const profile = {
-  email: "sp9023156004@gmail.com",
+  email: "23se02cs076@gmail.com",
   github: "https://github.com/underratedgitter",
   linkedin: "https://www.linkedin.com/in/thepatelsuraj",
   linkedinCertifications: "https://www.linkedin.com/in/thepatelsuraj/details/certifications/",
   leetcode: "https://leetcode.com/u/sp9023156004",
   bio: [
-    "I'm a Software & Solutions Architect intern at D-Tech Solution Integrators in Bharuch, where I own the company's web platform end to end: the Odoo website and e-commerce store, an internal dashboard integrated through the Odoo API, and the site's migration to a new hosting platform.",
+    "I'm a final-year B.Tech CSE student (2027) and a Software & Solutions Architect intern at D-Tech Solution Integrators in Bharuch, where I own two production systems end to end, dtechindia.com and the BCCI Bharuch membership portal: self-managed infrastructure, CI/CD with automatic rollback, security hardening, and encrypted backup and recovery.",
     "Outside work, I build the other half of the stack: the pipeline that ships the code, the telemetry that tells you it broke, and the system that works out why. That's what Aegis, an evidence-first SRE copilot, and my production-style CI/CD pipeline with real observability behind it are built around.",
     "Comfortable across the full incident lifecycle: detect, triage, mitigate, resolve, postmortem.",
   ],
@@ -20,7 +20,7 @@ export const experience = [
     location: "Bharuch, India",
     status: "current",
     description:
-      "Six-month internship leading into a full-time role. I own D-Tech's web platform end to end: the Odoo website, its connected e-commerce store, and an internal organisation dashboard integrated through the Odoo API. I'm now leading the migration of the site to a new hosting platform, keeping the store and its Odoo CRM integration running through the move.",
+      "Platform owner for two production systems, dtechindia.com and bccibharuch.in (the BCCI membership portal), across infrastructure, delivery, security and data protection. I re-platformed D-Tech from Vercel serverless to a containerised Node.js service behind Nginx on a self-managed Ubuntu VPS, shipped by GitHub Actions with test and CSP gates and health-checked rollouts that roll back on failure, with nightly AES-256 encrypted off-site backups and a scripted restore. The BCCI portal runs on Vercel or Docker, Redis or Postgres, and ships its full membership lifecycle, from OTP sign-in to QR credentials and event ticketing, behind 675+ automated tests.",
   },
   {
     id: "bindu",
@@ -58,7 +58,7 @@ export const proofs = [
   { claim: "Every automated fix is bounded, allowlisted, and needs a named human approver.", source: "Aegis" },
   { claim: "Code goes from push to live in under five minutes, gated on the tests passing.", source: "CI/CD Pipeline" },
   { claim: "Not one long-lived AWS key. CI plans every pull request through OIDC.", source: "Terraform AWS ECS Platform" },
-  { claim: "A GPU pipeline cut five minutes of processing down to twenty seconds.", source: "RAG Teaching Assistant" },
+  { claim: "Two production systems, each deploy health-checked and rolled back automatically on failure.", source: "D-Tech Solution Integrators" },
   { claim: "25+ cloud labs and 40 sessions that helped the university reach #1 in South Gujarat.", source: "GDSC, Cloud Event Manager" },
   { claim: "A merged refactor to an agent-infrastructure project with 9.3k stars.", source: "Bindu, open source" },
 ];
@@ -90,9 +90,9 @@ export const projects = [
     description:
       "A containerized Node/Express API on a multi-stage Alpine image — non-root user, layer caching tuned for rebuild speed. A four-stage GitHub Actions pipeline (lint & test → security audit → build, scan & push → deploy) takes code from push to live in under 5 minutes.",
     details: [
-      "Trivy scans every image before it ships, and the image is deployed by digest rather than tag, so what runs is exactly what was scanned. Docker Hub and deploy-hook auth route through GitHub Encrypted Secrets — no hardcoded credentials.",
-      "Prometheus scraping with Grafana dashboards and alert rules that fire on the things that actually page you: latency, error rate, heap growth, event-loop lag, and traffic falling off a cliff.",
-      "A Helm chart runs the same service on Kubernetes — HPA, disruption budget, network policy, ServiceMonitor, and a `helm test` that fails the release if the endpoints are wrong. Moving there is what exposed a readiness probe returning 200 while the pod drained.",
+      "Every image is gated on lint, Jest coverage thresholds, npm audit, and Trivy and kubeconform scans before it ships, and the image is deployed by digest rather than tag, so what runs is exactly what was scanned. Docker Hub and deploy-hook auth route through GitHub Encrypted Secrets — no hardcoded credentials.",
+      "Prometheus scraping with P50/P95/P99 Grafana dashboards and 11 alert rules that fire on the things that actually page you: latency, error rate, heap growth, event-loop lag, and traffic falling off a cliff.",
+      "A 12-object Helm chart runs the same service on a 3-node kind cluster — HPA, disruption budget, network policy, ServiceMonitor, hardened pods, and a `helm test` that fails the release if the endpoints are wrong. Moving there is what exposed a readiness probe returning 200 while the pod drained; fixing it took rollouts to zero failed requests.",
     ],
     featured: true,
   },
@@ -106,7 +106,8 @@ export const projects = [
     description:
       "Terraform that provisions a working AWS environment for a containerized web service: network, container hosts, load balancer, registry, logs, and alarms. Everything is a module, state lives in S3 with locking, and CI validates and plans on every pull request through GitHub OIDC — no long-lived AWS key anywhere.",
     details: [
-      "VPC across two availability zones, an ECS cluster on EC2 with a capacity provider, an ALB, ECR with a lifecycle policy, scoped IAM, and CloudWatch alarms.",
+      "VPC across two availability zones, an ECS cluster on EC2 with a capacity provider, an ALB, ECR with image scanning and a lifecycle policy, scoped IAM, and CloudWatch alarms, with state in S3 and DynamoDB locking.",
+      "Hosts enforce IMDSv2 and are reached through SSM, with no SSH.",
       "Written for the free tier and honest about the trade that makes it fit: no NAT gateway by default, so hosts sit in public subnets whose only ingress rule sources from the load balancer's security group — one flag moves them private.",
       "The execution role is hand-written and scoped to a single repository ARN rather than the managed policy, which would grant ECR read across the whole account.",
     ],
@@ -168,27 +169,27 @@ export const projects = [
 export const skillGroups = [
   {
     title: "Cloud & IaC",
-    items: ["AWS (EC2, ECS, ALB, ECR, S3, IAM, VPC, CloudWatch, CloudTrail)", "GCP (Compute Engine, Cloud Run, Storage, IAM, VPC, Logging)", "Terraform (modules, remote state, GitHub OIDC)", "Oracle Cloud", "Render"],
+    items: ["AWS (EC2, ECS, ALB, ECR, S3, IAM, VPC, CloudWatch, CloudTrail)", "GCP (Compute Engine, Cloud Run, Storage, IAM, VPC, Logging)", "Terraform (modules, remote state, GitHub OIDC)", "Vercel", "Oracle Cloud", "Render"],
   },
   {
     title: "Containers & CI/CD",
-    items: ["Docker", "Docker Compose", "Kubernetes", "Helm", "GitHub Actions", "multi-stage builds", "image tagging & rollback", "GitHub Encrypted Secrets", "Trivy vulnerability scanning"],
+    items: ["Docker", "Docker Compose", "Kubernetes", "Helm", "GitHub Actions", "GHCR", "multi-stage builds", "digest-pinned images", "automated test gating", "health-checked rollback", "GitHub Encrypted Secrets", "Trivy", "kubeconform"],
   },
   {
-    title: "Observability & Monitoring",
-    items: ["Prometheus", "Grafana", "Loki", "Promtail", "structured/JSON logging", "alerting rules", "P50/P95/P99 latency"],
+    title: "Observability & SRE",
+    items: ["Prometheus", "Grafana", "Loki", "Promtail", "structured/JSON logging", "alerting rules", "P50/P95/P99 latency", "detection & correlation", "runbook-driven triage", "blameless postmortems", "MTTR tracking", "chaos testing", "anomaly detection"],
   },
   {
-    title: "Incident Response & Reliability",
-    items: ["detection & correlation", "runbook-driven triage", "blameless postmortems", "MTTR tracking", "chaos injection testing", "anomaly detection"],
+    title: "Security",
+    items: ["hash-based CSP", "HMAC-signed expiring URLs", "AES-256 encryption", "HttpOnly / SameSite sessions", "rate limiting", "least-privilege IAM", "secrets management", "image scanning"],
   },
   {
     title: "Linux & Networking",
-    items: ["process management", "systemd / journalctl", "shell scripting", "file permissions", "TCP/IP", "DNS", "HTTP/HTTPS", "curl / traceroute / dig"],
+    items: ["Ubuntu", "Nginx (reverse proxy, TLS)", "process management", "systemd / journalctl", "shell scripting", "file permissions", "TCP/IP", "DNS", "HTTP/HTTPS", "CIDR", "firewalls", "curl / traceroute / dig"],
   },
   {
     title: "Programming, Backend & Databases",
-    items: ["Python", "Bash", "C / C++", "JavaScript (Node.js)", "SQL", "FastAPI", "Express", "REST APIs", "Odoo (API, website, e-commerce)", "MySQL", "MongoDB", "SQLite"],
+    items: ["Python", "Bash", "C / C++", "JavaScript (Node.js)", "SQL", "FastAPI", "Express", "REST APIs", "Odoo (API, website, e-commerce)", "PostgreSQL", "Redis", "MySQL", "MongoDB", "SQLite"],
   },
   {
     title: "Applied AI/ML & Data",

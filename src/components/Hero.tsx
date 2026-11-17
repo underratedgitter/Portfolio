@@ -63,7 +63,7 @@ export function Hero() {
   const meta = [
     { k: "Discipline", v: "DevOps · Cloud · SRE" },
     { k: "Currently", v: "D-Tech Solution Integrators" },
-    { k: "Based in", v: "Bharuch, India" },
+    { k: "Based in", v: "Bharuch / Surat, India" },
     { k: "Local time", v: <LocalTime /> },
   ];
 

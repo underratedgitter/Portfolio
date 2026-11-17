@@ -43,7 +43,7 @@ export function Contact() {
         </h2>
         <div className="mt-10 lg:col-span-5 lg:col-start-8 lg:mt-16">
           <p className="max-w-[40ch] text-[15px] leading-[1.6] text-white/70">
-            Open to DevOps, cloud, and SRE roles, and interesting infrastructure problems in general.
+            Open to DevOps, cloud, and SRE roles, including onsite in Surat, and interesting infrastructure problems in general.
           </p>
 
           <p className="display mt-10 text-[1.6rem] leading-none sm:text-[2rem]">

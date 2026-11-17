@@ -10,7 +10,7 @@ export function About() {
         id="about"
         index="04"
         align="end"
-        note="Bharuch, India"
+        note="Bharuch / Surat, India"
         title={
           <>
             About <em>me</em>
