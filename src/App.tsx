@@ -16,9 +16,15 @@ function App() {
     // `strict` makes any stray full `motion.*` component fail loudly instead of pulling the full bundle back in.
     <LazyMotion features={domAnimation} strict>
       <div className="min-h-screen overflow-x-clip bg-black pt-3 text-white sm:pt-4">
+        <a
+          href="#main"
+          className="label sr-only z-[60] bg-white px-4 py-3 text-black focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to content
+        </a>
         <div className="mx-3 border-x border-b border-white sm:mx-4">
           <NavBar />
-          <main>
+          <main id="main">
             <Hero />
             <Proofs />
             <Projects />

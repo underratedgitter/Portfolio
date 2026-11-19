@@ -48,5 +48,5 @@ Because the output is plain static files, any static host also works:
 - The hero name uses **Akira Expanded** by Typologic (`public/fonts/akira-expanded.woff2`), downloaded from DaFont as the free demo. It is free for personal use only; commercial use requires the full license from https://creativemarket.com/typologic/4868098-Akira-Expanded.
 - The link preview image is `public/og-image.png` (1200×630).
 
-- The résumé is served from `public/Suraj_Patel_Resume.pdf` and linked from the nav bar, the hero and the about section — replace that file to update it.
-- Update social links, email, and bio text in `src/data/content.ts`.
+- The résumé is served from `public/Suraj_Patel_Resume.pdf` (path set once as `profile.resume` in `src/data/content.ts`) and linked from the nav bar, the hero and the about section — replace that file to update it.
+- Update social links, email, location and bio text in `src/data/content.ts`. The hero's "Currently" field follows whichever experience entry has `status: "current"`.

@@ -1,3 +1,4 @@
+import { profile } from "../data/content";
 import { Scramble } from "./Scramble";
 
 const LINKS = [
@@ -28,7 +29,7 @@ export function NavBar() {
             </a>
           ))}
           <a
-            href="/Suraj_Patel_Resume.pdf"
+            href={profile.resume}
             target="_blank"
             rel="noreferrer"
             className="label hidden transition-opacity duration-200 hover:opacity-50 sm:inline"

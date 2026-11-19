@@ -4,6 +4,9 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/thepatelsuraj",
   linkedinCertifications: "https://www.linkedin.com/in/thepatelsuraj/details/certifications/",
   leetcode: "https://leetcode.com/u/sp9023156004",
+  // Replace public/Suraj_Patel_Resume.pdf to update the résumé; every link on the site points here.
+  resume: "/Suraj_Patel_Resume.pdf",
+  location: "Bharuch / Surat, India",
   bio: [
     "I'm a final-year B.Tech CSE student (2027) and a Software & Solutions Architect intern at D-Tech Solution Integrators in Bharuch, where I own two production systems end to end, dtechindia.com and the BCCI Bharuch membership portal: self-managed infrastructure, CI/CD with automatic rollback, security hardening, and encrypted backup and recovery.",
     "Outside work, I build the other half of the stack: the pipeline that ships the code, the telemetry that tells you it broke, and the system that works out why. That's what Aegis, an evidence-first SRE copilot, and my production-style CI/CD pipeline with real observability behind it are built around.",

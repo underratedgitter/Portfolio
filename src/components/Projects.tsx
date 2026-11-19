@@ -26,7 +26,9 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
         href={project.href}
         target="_blank"
         rel="noreferrer"
-        aria-label={`${project.name} on GitHub`}
+        // Same destination as the heading link, so keep it out of the tab order and away from screen readers.
+        tabIndex={-1}
+        aria-hidden
         className={`relative block p-4 sm:p-6 ${flip ? "md:order-2" : ""}`}
       >
         <Rule className="md:hidden" />
@@ -55,7 +57,7 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
         <p className="mt-8 max-w-[54ch] text-[15px] leading-[1.55] text-white/85">{project.description}</p>
 
         {open && (
-          <ul className="mt-5 max-w-[54ch] space-y-3 border-l border-white/40 pl-4 text-[15px] leading-[1.55] text-white/70">
+          <ul id={`${project.id}-details`} className="mt-5 max-w-[54ch] space-y-3 border-l border-white/40 pl-4 text-[15px] leading-[1.55] text-white/70">
             {project.details.map((d) => (
               <li key={d}>{d}</li>
             ))}
@@ -63,8 +65,10 @@ function WorkRow({ project, index, flip }: { project: Project; index: number; fl
         )}
         {project.details.length > 0 && (
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
+            aria-controls={`${project.id}-details`}
             className="label mt-5 self-start border-b border-white/40 pb-1 transition-colors hover:border-white"
           >
             {open ? "− Less" : "+ More detail"}

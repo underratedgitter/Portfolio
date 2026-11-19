@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import * as m from "motion/react-m";
 import { useReducedMotion, type Easing } from "motion/react";
-import { profile } from "../data/content";
+import { experience, profile } from "../data/content";
 import { SystemGraphic } from "./SystemGraphic";
 import { PillLink } from "./PillLink";
 import { Rule } from "./Rule";
 import { Scramble } from "./Scramble";
 
 const YEAR = new Date().getFullYear();
+
+// The hero always names the role marked current in content.ts, so it can't drift from the experience list.
+const CURRENT_ORG = experience.find((item) => item.status === "current")?.org ?? "Open to work";
 
 const EASE: Easing = [0.16, 1, 0.3, 1];
 
@@ -62,8 +65,8 @@ export function Hero() {
 
   const meta = [
     { k: "Discipline", v: "DevOps · Cloud · SRE" },
-    { k: "Currently", v: "D-Tech Solution Integrators" },
-    { k: "Based in", v: "Bharuch / Surat, India" },
+    { k: "Currently", v: CURRENT_ORG },
+    { k: "Based in", v: profile.location },
     { k: "Local time", v: <LocalTime /> },
   ];
 
@@ -106,7 +109,9 @@ export function Hero() {
             <Rule side="top" soft />
             <span>Portfolio · {YEAR}</span>
             <span className="hidden sm:inline">Pipelines · Telemetry · Reliability</span>
-            <span>Scroll ↓</span>
+            <a href="#work" className="transition-opacity duration-200 hover:opacity-50">
+              Scroll <span aria-hidden>↓</span>
+            </a>
           </m.div>
         </div>
       </div>
@@ -124,7 +129,7 @@ export function Hero() {
             <PillLink href={`mailto:${profile.email}`} variant="solid">
               Start a conversation
             </PillLink>
-            <PillLink href="/Suraj_Patel_Resume.pdf" external>
+            <PillLink href={profile.resume} external>
               Résumé <span aria-hidden>↗</span>
             </PillLink>
           </div>

@@ -10,7 +10,7 @@ export function About() {
         id="about"
         index="04"
         align="end"
-        note="Bharuch / Surat, India"
+        note={profile.location}
         title={
           <>
             About <em>me</em>
@@ -40,7 +40,7 @@ export function About() {
         </Reveal>
 
         <Reveal className="flex flex-col gap-8 px-4 pb-10 pt-5 sm:px-6 lg:col-span-3">
-          <a href="/Suraj_Patel_Resume.pdf" target="_blank" rel="noreferrer" className="group">
+          <a href={profile.resume} target="_blank" rel="noreferrer" className="group">
             <p className="label text-white/50">Résumé</p>
             <p className="display mt-3 text-[2.2rem] leading-none">
               Download <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-1">↗</span>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { profile } from "../data/content";
 import { PillLink } from "./PillLink";
 import { Reveal } from "./Reveal";
@@ -6,6 +6,10 @@ import { Rule } from "./Rule";
 
 function CopyEmailButton() {
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
+  const resetTimer = useRef<number | undefined>(undefined);
+
+  // Clear any pending reset when the button unmounts.
+  useEffect(() => () => window.clearTimeout(resetTimer.current), []);
 
   async function copy() {
     try {
@@ -14,7 +18,9 @@ function CopyEmailButton() {
     } catch {
       setState("failed");
     }
-    window.setTimeout(() => setState("idle"), 2200);
+    // Restart the timer on each click, so a quick second click doesn't get reset early by the first.
+    window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setState("idle"), 2200);
   }
 
   return (
